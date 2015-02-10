@@ -1,0 +1,77 @@
+<!doctype html>
+<script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+<script src="../vendor/d3.v3.js"></script>
+<script src="../rickshaw.min.js"></script>
+<script src="../../Rickshaw.Fixtures.PubNub.js"></script>
+
+<div id="chart"></div>
+
+<script>
+var graph = new Rickshaw.Graph( {
+    element: document.getElementById("chart"),
+    width: 900,
+    height: 500,
+    renderer: 'area',
+    stroke: true,
+    preserve: true,
+    series: [
+        {
+            color: 'steelblue',
+            name: 'Cats',
+            data: []
+        },
+        {
+            color: 'lightblue',
+            name: 'Dogs',
+            data: []
+        }
+    ]
+});
+
+graph.render();
+
+new Rickshaw.Fixtures.PubNub({
+  channel: 'rickshaw-channel-1',
+  graph: graph
+});
+
+</script>
+
+<script>
+/*
+
+  The code below is not part of the Rickshaw.Fixtures.PubNub extension.
+
+  ===========
+
+  This uses the included PubNub library to pubnub.publish() 
+  packets to the pubnub.subscribe() call waiting inside the 
+  framework. 
+
+  Notice how the subscribe_key and channel name matches.
+
+  You probably want to publish data from the backend instead. 
+  Check out our docs for more info:
+
+  http://www.pubnub.com/docs
+
+*/
+
+var pubnub = PUBNUB.init({
+  publish_key: 'demo',
+  subscribe_key: 'demo'
+});
+
+setInterval(function(){
+  pubnub.publish({
+    channel: 'rickshaw-channel-1',
+    message: {
+      y: [
+        Math.random() * 99, 
+        Math.random() * 99
+      ],
+      x: new Date().getTime()
+    }
+  })
+}, 1000);
+</script>

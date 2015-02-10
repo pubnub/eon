@@ -1,0 +1,310 @@
+<!doctype html>
+<head>
+  <link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css">
+  <link type="text/css" rel="stylesheet" href="../src/css/graph.css">
+  <link type="text/css" rel="stylesheet" href="../src/css/detail.css">
+  <link type="text/css" rel="stylesheet" href="../src/css/legend.css">
+  <link type="text/css" rel="stylesheet" href="css/extensions.css?v=2">
+  <link type="text/css" rel="stylesheet" href="css/spinner.css">
+
+  <script src="../vendor/d3.v3.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+  <script>
+    jQuery.noConflict();
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.15/jquery-ui.min.js"></script>
+
+  <script src="../src/js/Rickshaw.js"></script>
+  <script src="../src/js/Rickshaw.Class.js"></script>
+  <script src="../src/js/Rickshaw.Compat.ClassList.js"></script>
+  <script src="../src/js/Rickshaw.Graph.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Renderer.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Renderer.Area.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Renderer.Line.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Renderer.Bar.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Renderer.ScatterPlot.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Renderer.Stack.js"></script>
+  <script src="../src/js/Rickshaw.Graph.RangeSlider.js"></script>
+  <script src="../src/js/Rickshaw.Graph.RangeSlider.Preview.js"></script>
+  <script src="../src/js/Rickshaw.Graph.HoverDetail.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Annotate.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Legend.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Axis.Time.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Behavior.Series.Toggle.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Behavior.Series.Order.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Behavior.Series.Highlight.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Smoother.js"></script>
+  <script src="../src/js/Rickshaw.Fixtures.Time.js"></script>
+  <script src="../src/js/Rickshaw.Fixtures.Time.Local.js"></script>
+  <script src="../src/js/Rickshaw.Fixtures.Number.js"></script>
+  <script src="../src/js/Rickshaw.Fixtures.Color.js"></script>
+  <script src="../src/js/Rickshaw.Color.Palette.js"></script>
+  <script src="../src/js/Rickshaw.Graph.Axis.Y.js"></script>
+
+  <script src="http://cdn.pubnub.com/pubnub.min.js"></script>
+  <script src="../../Rickshaw.Fixtures.PubNub.js"></script>
+
+  <script src="js/extensions.js"></script>
+</head>
+<body>
+
+<div id="content">
+
+  <form id="side_panel">
+    <h1>Random Data from PubNub</h1>
+    <section><div id="legend"></div></section>
+    <section>
+      <div id="renderer_form" class="toggler">
+        <input type="radio" name="renderer" id="area" value="area" checked>
+        <label for="area">area</label>
+        <input type="radio" name="renderer" id="bar" value="bar">
+        <label for="bar">bar</label>
+        <input type="radio" name="renderer" id="line" value="line">
+        <label for="line">line</label>
+        <input type="radio" name="renderer" id="scatter" value="scatterplot">
+        <label for="scatter">scatter</label>
+      </div>
+    </section>
+    <section>
+      <div id="offset_form">
+        <label for="stack">
+          <input type="radio" name="offset" id="stack" value="zero" checked>
+          <span>stack</span>
+        </label>
+        <label for="stream">
+          <input type="radio" name="offset" id="stream" value="wiggle">
+          <span>stream</span>
+        </label>
+        <label for="pct">
+          <input type="radio" name="offset" id="pct" value="expand">
+          <span>pct</span>
+        </label>
+        <label for="value">
+          <input type="radio" name="offset" id="value" value="value">
+          <span>value</span>
+        </label>
+      </div>
+      <div id="interpolation_form">
+        <label for="cardinal">
+          <input type="radio" name="interpolation" id="cardinal" value="cardinal" checked>
+          <span>cardinal</span>
+        </label>
+        <label for="linear">
+          <input type="radio" name="interpolation" id="linear" value="linear">
+          <span>linear</span>
+        </label>
+        <label for="step">
+          <input type="radio" name="interpolation" id="step" value="step-after">
+          <span>step</span>
+        </label>
+      </div>
+    </section>
+    <section>
+      <h6>Smoothing</h6>
+      <div id="smoother"></div>
+    </section>
+    <section></section>
+  </form>
+
+  <div id="chart_container">
+    <div id="chart">
+      <div class="spinner" id="load">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+    </div>
+    <div id="timeline"></div>
+    <div id="preview"></div>
+  </div>
+
+</div>
+
+<script>
+
+var palette = new Rickshaw.Color.Palette( { scheme: 'spectrum14' } );
+
+// instantiate our graph!
+
+var graph = new Rickshaw.Graph( {
+  element: document.getElementById("chart"),
+  width: 900,
+  height: 500,
+  renderer: 'area',
+  stroke: true,
+  preserve: true,
+  series: [
+    {
+      color: palette.color(),
+      data: [],
+      name: 'Moscow'
+    }, {
+      color: palette.color(),
+      data: [],
+      name: 'Shanghai'
+    }, {
+      color: palette.color(),
+      data: [],
+      name: 'Amsterdam'
+    }, {
+      color: palette.color(),
+      data: [],
+      name: 'Paris'
+    }, {
+      color: palette.color(),
+      data: [],
+      name: 'Tokyo'
+    }, {
+      color: palette.color(),
+      data: [],
+      name: 'London'
+    }, {
+      color: palette.color(),
+      data: [],
+      name: 'New York'
+    }
+  ]
+});
+
+
+var init = function() {
+
+  // remove loading animation
+  var element = document.getElementById("load");
+  console.log(element)
+  element.parentNode.removeChild(element);
+
+  graph.render();
+  var preview = new Rickshaw.Graph.RangeSlider( {
+    graph: graph,
+    element: document.getElementById('preview'),
+  } );
+  var hoverDetail = new Rickshaw.Graph.HoverDetail( {
+    graph: graph,
+    xFormatter: function(x) {
+      return new Date(x * 1000).toString();
+    }
+  } );
+  var annotator = new Rickshaw.Graph.Annotate( {
+    graph: graph,
+    element: document.getElementById('timeline')
+  } );
+  var legend = new Rickshaw.Graph.Legend( {
+    graph: graph,
+    element: document.getElementById('legend')
+  } );
+  var shelving = new Rickshaw.Graph.Behavior.Series.Toggle( {
+    graph: graph,
+    legend: legend
+  } );
+  var order = new Rickshaw.Graph.Behavior.Series.Order( {
+    graph: graph,
+    legend: legend
+  } );
+  var highlighter = new Rickshaw.Graph.Behavior.Series.Highlight( {
+    graph: graph,
+    legend: legend
+  } );
+  var smoother = new Rickshaw.Graph.Smoother( {
+    graph: graph,
+    element: document.querySelector('#smoother')
+  } );
+  var ticksTreatment = 'glow';
+  var xAxis = new Rickshaw.Graph.Axis.Time( {
+    graph: graph,
+    ticksTreatment: ticksTreatment,
+    timeFixture: new Rickshaw.Fixtures.Time.Local()
+  } );
+  xAxis.render();
+  var yAxis = new Rickshaw.Graph.Axis.Y( {
+    graph: graph,
+    tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
+    ticksTreatment: ticksTreatment
+  } );
+  yAxis.render();
+  var controls = new RenderControls( {
+    element: document.querySelector('form'),
+    graph: graph
+  } );
+  // add some data every so often
+
+};
+
+new Rickshaw.Fixtures.PubNub({
+  subscribe_key: 'demo',
+  channel: 'rickshaw-channel-22',
+  history: true,
+  graph: graph,
+  connect: init,
+  limit: 50
+});
+
+</script>
+
+<script>
+/*
+
+  The code below is not part of the Rickshaw.Fixtures.PubNub extension.
+
+  ===========
+
+  This uses the included PubNub library to pubnub.publish() 
+  packets to the pubnub.subscribe() call waiting inside the 
+  framework. 
+
+  Notice how the subscribe_key and channel name matches.
+
+  You probably want to publish data from the backend instead. 
+  Check out our docs for more info:
+
+  http://www.pubnub.com/docs
+
+*/
+
+var pubnub = PUBNUB.init({
+  publish_key: 'demo',
+  subscribe_key: 'demo'
+});
+
+var lastdata = [
+  Math.round(Math.random() * 99), 
+  Math.round(Math.random() * 99), 
+  Math.round(Math.random() * 99), 
+  Math.round(Math.random() * 99), 
+  Math.round(Math.random() * 99), 
+  Math.round(Math.random() * 99), 
+  Math.round(Math.random() * 99)
+];
+
+setInterval(function(){
+
+  var a = 10;
+
+  var newdata = [
+    lastdata[0] - (Math.random() * a) + (Math.random() * a),
+    lastdata[1] - (Math.random() * a) + (Math.random() * a),
+    lastdata[2] - (Math.random() * a) + (Math.random() * a),
+    lastdata[3] - (Math.random() * a) + (Math.random() * a),
+    lastdata[4] - (Math.random() * a) + (Math.random() * a),
+    lastdata[5] - (Math.random() * a) + (Math.random() * a),
+    lastdata[6] - (Math.random() * a) + (Math.random() * a)
+  ]
+
+  lastdata = newdata;
+
+  pubnub.publish({
+    channel: 'rickshaw-channel-22',
+    message: {
+      y: newdata,
+      x: Math.floor(new Date().getTime() / 1000)
+    }
+  })
+}, 1000);
+</script>
+
+</body>
+
