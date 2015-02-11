@@ -24,7 +24,7 @@ Rickshaw.Fixtures.PubNub = function (options) {
   // handy function to run something once
   var first = true;
 
-  self.page = function(count) {
+  self.page = function() {
 
     all_messages = [];
 
