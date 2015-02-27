@@ -1,0 +1,149 @@
+<html>
+  <head>
+
+    <link type="text/css" rel="stylesheet" href="build/eon.css">
+    <script src="build/eon.js"></script>
+
+    <style>
+      .c3-region-1 {
+        fill: #dd3333;
+        fill-opacity: 0.8
+      }
+
+      #map {
+        width:100%;
+        height: 600px;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <div id="rickshaw-chart"></div>
+    <div id="c3-chart"></div>
+    <div id="map"></div>
+
+    <script>
+
+    // helper function
+    function getNonZeroRandomNumber(){
+      var random = Math.floor(Math.random()*199) - 99;
+      if(random==0) return getNonZeroRandomNumber();
+      return random;
+    }
+
+    // eon.rickshaw
+    var graph = new Rickshaw.Graph( {
+        element: document.getElementById("rickshaw-chart"),
+        width: 900,
+        height: 500,
+        renderer: 'area',
+        stroke: true,
+        preserve: true,
+        series: [
+          {
+            color: 'steelblue',
+            name: 'Cats',
+            data: []
+          },
+          {
+            color: 'lightblue',
+            name: 'Dogs',
+            data: []
+          }
+        ]
+    });
+
+    graph.render();
+
+    new eon.rickshaw({
+      channel: 'rickshaw-channel-1',
+      graph: graph
+    });
+
+    // eon.c3
+    var chart = new eon.c3({
+      channel: "c3-bar",
+      generate: {
+        bindto: '#c3-chart',
+        data: {
+          columns: [],
+          labels: true,
+          type: 'bar'
+        },
+        bar: {
+          width: {
+            ratio: 0.5
+          }
+        },
+        tooltip: {
+            show: false
+        }
+      }
+    });
+
+    // eon.mapbox
+    L.mapbox.accessToken = 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg';
+    var map = L.mapbox.map('map', 'ianjennings.l896mh2e');
+
+    var channel = 'pubnub-mapbox';
+
+    var tacos = new eon.mapbox({
+      map: map,
+      channel: channel
+    });
+
+    </script>
+
+    <script>
+
+    // pubnub
+    var pubnub = PUBNUB.init({
+      publish_key: 'demo',
+      subscribe_key: 'demo'
+    });
+    setInterval(function(){
+
+      var point = {
+        latlng: [37.370375, -97.756138]
+      };
+
+      pubnub.publish({
+        channel: 'c3-bar',
+        message: {
+          columns: [
+            ['Austin', Math.floor(Math.random() * 99)],
+            ['New York', Math.floor(Math.random() * 99)],
+            ['San Francisco', Math.floor(Math.random() * 99)],
+            ['Portland', Math.floor(Math.random() * 99)]
+          ]
+        }
+      });
+
+      pubnub.publish({
+        channel: 'rickshaw-channel-1',
+        message: {
+          y: [
+            Math.random() * 99,
+            Math.random() * 99
+          ],
+          x: new Date().getTime()
+        }
+      });
+
+      var new_point = JSON.parse(JSON.stringify(point));
+
+      new_point.latlng = [
+        new_point.latlng[0] + (getNonZeroRandomNumber() * 0.1),
+        new_point.latlng[1] + (getNonZeroRandomNumber() * 0.2)
+      ];
+
+      pubnub.publish({
+        channel: channel,
+        message: [new_point]
+      });
+
+    }, 1000);
+    </script>
+  </body>
+</html>
