@@ -19,46 +19,106 @@
     <link type="text/css" rel="stylesheet" href="src/build/eon.css">
     <script src="src/build/eon.js"></script>
 
-    <style>
-      .c3-region-1 {
-        fill: #dd3333;
-        fill-opacity: 0.8
-      }
-
-      #map {
-        width:100%;
-        height: 600px;
-      }
-    </style>
-
   </head>
 
   <body>
 
-        <div id="rickshaw-chart"></div>
+  <style>
+  .c3-region-1 {
+    fill: #dd3333;
+    fill-opacity: 0.8
+  }
+  #dashboard {
+    position: relative;
+    height: 600px;
+  }
+  #map {
+    width:100%;
+    height: 600px;
+  }
+  #rickshaw {
+    z-index: 2;
+    position: absolute;
+    left: 10px;
+    bottom: 30px;
+  }
+  #c3 {
+    z-index: 2;
+    position: absolute;
+    right: 10px;
+    width: 200px;
+    height: 100px;
+    top: 10px;
+  }
+</style>
+
+<div id="dashboard">
+  <div id="rickshaw">
+    <div id="rickshaw-chart"></div>
+  </div>
+  <div id="c3">
     <div id="c3-chart"></div>
-    <div id="map"></div>
+  </div>
+  <div id="map"></div>
+</div>
 
-    <script>
+<script>
 
-    /*
-    purple-darkest: #91688C;
-    pubnub-medium:  #6b476c;
-    purple-black:   #3a2b4a;
-    black:          #160e14;
-    red-light:      #b35258;
-    red-dark:       #601e19;
-    blue:           #c7e4de;
-    purple-light:   #91688c;
-    */
+/*
+purple-darkest: #91688C;
+pubnub-medium:  #6b476c;
+purple-black:   #3a2b4a;
+black:          #160e14;
+red-light:      #b35258;
+red-dark:       #601e19;
+blue:           #c7e4de;
+purple-light:   #91688c;
+*/
 
-    // helper function
-    function getNonZeroRandomNumber(){
-      var random = Math.floor(Math.random()*199) - 99;
-      if(random==0) return getNonZeroRandomNumber();
-      return random;
+// helper function
+function getNonZeroRandomNumber(){
+  var random = Math.floor(Math.random()*199) - 99;
+  if(random==0) return getNonZeroRandomNumber();
+  return random;
+}
+
+var me = {
+  icon: {
+    'marker-color': '#b35258'
+  }
+};
+var them = {
+  icon: {
+    'marker-color': '#c7e4de'
+  }
+};
+
+var origins = {
+  mapbox: [
+    {
+      latlng: [30.293479, -97.742405],
+      options: me
+    },
+    {
+      latlng: [30.370375, -97.756138],
+      options: them
+    },
+    {
+      latlng: [30.323118, -97.739144],
+      options: them
+    },
+    {
+      latlng: [30.302816, -97.699490],
+      options: them
+    },
+    {
+      latlng: [30.250337, -97.754593],
+      options: them
     }
+  ]
+};
 
+<<<<<<< HEAD
     // eon.rickshaw
     var graph = new Rickshaw.Graph( {
       element: document.getElementById("rickshaw-chart"),
@@ -106,15 +166,133 @@
         tooltip: {
             show: false
         }
+=======
+var copy = function (data) {
+  return JSON.parse(JSON.stringify(data));
+}
+
+var data = {
+  mapbox: function(){
+
+    var new_data = copy(origins.mapbox);
+    for (var i = 0; i < new_data.length; i++) {
+
+      new_data[i] = {
+        options: new_data[i].options,
+        latlng: [
+          new_data[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
+          new_data[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
+        ]
       }
-    });
 
-    // eon.mapbox
-    L.mapbox.accessToken = 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg';
-    var map = L.mapbox.map('map', 'ianjennings.06d6eddb');
+    }
 
-    var channel = 'pubnub-mapbox';
+    return new_data;
 
+  },
+  rickshaw: function(){
+
+    return [
+      Math.floor(Math.random() * 99),
+      Math.floor(Math.random() * 99),
+      Math.floor(Math.random() * 99),
+      Math.floor(Math.random() * 99),
+      Math.floor(Math.random() * 99)
+    ];
+
+  },
+  c3: function() {
+    return [
+      ['Me', Math.floor(Math.random() * 99)],
+      ['Nick', Math.floor(Math.random() * 99)],
+      ['Ritika', Math.floor(Math.random() * 99)],
+      ['Emily', Math.floor(Math.random() * 99)],
+      ['Sami', Math.floor(Math.random() * 99)]
+    ]
+  }
+}
+
+
+// eon.rickshaw
+var graph = new Rickshaw.Graph( {
+  element: document.getElementById("rickshaw-chart"),
+  width: 300,
+  height: 200,
+  renderer: 'line',
+  stroke: true,
+  preserve: true,
+  series: [
+    {
+      color: '#b35258',
+      name: 'Me',
+      data: []
+    },
+    {
+      color: '#c7e4de',
+      name: 'Nick',
+      data: []
+    },
+    {
+      color: '#c7e4de',
+      name: 'Ritika',
+      data: []
+    },
+    {
+      color: '#c7e4de',
+      name: 'Emily',
+      data: []
+    },
+    {
+      color: '#c7e4de',
+      name: 'Sami',
+      data: []
+    }
+  ]
+});
+
+graph.render();
+
+new eon.rickshaw({
+  channel: 'rickshaw-channel-1',
+  graph: graph
+});
+
+// eon.c3
+var chart = new eon.c3({
+  channel: "c3-bar",
+  generate: {
+    bindto: '#c3-chart',
+    data: {
+      columns: [],
+      labels: false,
+      type: 'bar',
+      colors: {
+        Me: '#b35258',
+        Nick: '#c7e4de',
+        Ritika: '#c7e4de',
+        Emily: '#c7e4de',
+        Sami: '#c7e4de'
+      }
+    },
+    bar: {
+      width: {
+        ratio: 0.5
+>>>>>>> master
+      }
+    },
+    tooltip: {
+        show: false
+    }
+  }
+});
+
+// eon.mapbox
+L.mapbox.accessToken = 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg';
+var map = L.mapbox.map('map', 'ianjennings.06d6eddb');
+
+var channel = 'pubnub-mapbox';
+
+<<<<<<< HEAD
     var tacos = new eon.mapbox({
       map: map,
       channel: channel
@@ -125,15 +303,23 @@
       zoom: 13
     });
     </script>
+=======
+var tacos = new eon.mapbox({
+  map: map,
+  channel: channel
+});
+</script>
+>>>>>>> master
 
-    <script>
+<script>
 
-    // pubnub
-    var pubnub = PUBNUB.init({
-      publish_key: 'demo',
-      subscribe_key: 'demo'
-    });
+// pubnub
+var pubnub = PUBNUB.init({
+  publish_key: 'demo',
+  subscribe_key: 'demo'
+});
 
+<<<<<<< HEAD
 
     var me = {
       icon: {
@@ -172,9 +358,13 @@
         options: them
       }
     ];
+=======
+map.setView(data.mapbox()[0].latlng, 13);
+>>>>>>> master
 
-    setInterval(function(){
+setInterval(function(){
 
+<<<<<<< HEAD
       var new_torchys = JSON.parse(JSON.stringify(torchys));
       for (var i = 0; i < new_torchys.length; i++) {
 
@@ -218,6 +408,32 @@
 
     }, 1000);
     </script>
+=======
+  pubnub.publish({
+    channel: channel,
+    message: data.mapbox()
+  });
+
+  pubnub.publish({
+    channel: 'c3-bar',
+    message: {
+      columns: data.c3()
+    }
+  });
+
+  console.log(data.rickshaw())
+
+  pubnub.publish({
+    channel: 'rickshaw-channel-1',
+    message: {
+      y: data.rickshaw(),
+      x: new Date().getTime()
+    }
+  });
+
+}, 2000);
+</script>
+>>>>>>> master
 
 <div class="container">
 
@@ -342,6 +558,7 @@
   </div>
 
 </div>
+
 
   </body>
 </html>
