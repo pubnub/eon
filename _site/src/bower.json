@@ -1,0 +1,45 @@
+{
+  "name": "EON",
+  "version": "0.0.1",
+  "homepage": "https://github.com/pubnub/eon",
+  "authors": [
+    "Ian Jennings <ian@meetjennings.com>"
+  ],
+  "description": "EON Realtime Dashboard Library",
+  "main": "eon.js",
+  "keywords": [
+    "realtime",
+    "dashboard",
+    "charts",
+    "maps",
+    "pubnub",
+    "time",
+    "series",
+    "marker",
+    "donut",
+    "graph",
+    "gauge",
+    "line",
+    "chart",
+    "bar",
+    "chart",
+    "for",
+    "sure"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "eon-c3": "~0.1.1",
+    "eon-mapbox": "~0.1.1",
+    "eon-rickshaw": "~0.1.1"
+  },
+  "resolutions": {
+    "d3": "~3.5.5"
+  }
+}
