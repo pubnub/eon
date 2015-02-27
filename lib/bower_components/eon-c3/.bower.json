@@ -1,6 +1,6 @@
 {
   "name": "eon-c3",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/pubnub/pubnub-c3",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
@@ -32,14 +32,13 @@
     "c3": "~0.4.9",
     "pubnub": "~3.7.8"
   },
-  "_release": "0.1.1",
+  "_release": "0.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.1.1",
-    "commit": "162f2c2135f29c69874ee80ba944c6f9ace5f815"
+    "tag": "0.1.2",
+    "commit": "93f975d0af86f6b9fd7184d5a49aeb695cd70fa4"
   },
   "_source": "git://github.com/pubnub/pubnub-c3.git",
   "_target": "~0.1.1",
-  "_originalSource": "eon-c3",
-  "_direct": true
+  "_originalSource": "eon-c3"
 }

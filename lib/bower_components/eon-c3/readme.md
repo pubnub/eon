@@ -40,7 +40,7 @@ Realtime animated graphs with [PubNub](http://pubnub.com) and [C3](http://c3js.o
 ```html
 <div id="chart"></div>
 <script>
-  var chart = pubnubC3({
+  var chart = new pubnub_c3({
     channel: "c3-spline", // the pubnub channel for real time data
     generate: {},         // c3 chart object
     flow: {},             // flow configuration
@@ -74,7 +74,7 @@ Initialize pubnub-c3, plug your normal C3 config into the ```generate``` param. 
 ```html
 <div id="chart"></div>
 <script>
-var chart = pubnubC3({
+var chart = new pubnub_c3({
   channel: "c3-spline",
   generate: {
     bindto: '#chart',
