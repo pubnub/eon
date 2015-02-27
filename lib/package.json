@@ -1,0 +1,40 @@
+{
+  "name": "EON",
+  "version": "0.0.1",
+  "description": "EON Realtime Dashboard Library",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pubnub/eon"
+  },
+  "keywords": [
+    "realtime",
+    "dashboard",
+    "charts",
+    "time",
+    "series",
+    "gauge",
+    "chart",
+    "donut",
+    "marker",
+    "google",
+    "maps"
+  ],
+  "author": "Ian Jennings <ian@meetjennings.com> (http://ianjennin.gs)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pubnub/eon/issues"
+  },
+  "homepage": "https://github.com/pubnub/eon",
+  "devDependencies": {
+    "gulp": "^3.8.11"
+  },
+  "dependencies": {
+    "gulp": "^3.8.11",
+    "gulp-concat": "^2.5.2",
+    "gulp-uglify": "^1.1.0"
+  }
+}

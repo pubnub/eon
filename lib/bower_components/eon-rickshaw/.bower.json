@@ -1,0 +1,43 @@
+{
+  "name": "eon-rickshaw",
+  "version": "0.1.1",
+  "homepage": "https://github.com/pubnub/pubnub-rickshaw",
+  "authors": [
+    "Ian Jennings <ian@meetjennings.com>"
+  ],
+  "description": "ShutterStock Rickshaw Realtime Series Charts with PubNub. Part of the EON Framework.",
+  "main": "Rickshaw.Fixtures.PubNub.js",
+  "keywords": [
+    "pubnub",
+    "realtime",
+    "charts",
+    "time",
+    "series",
+    "time series",
+    "graph",
+    "streaming"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "rickshaw": "~1.5.1",
+    "pubnub": "~3.7.8",
+    "d3": "~3.5.5"
+  },
+  "_release": "0.1.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.1",
+    "commit": "9f2673107ba1729fb6d74ab9b0dae0f05d221383"
+  },
+  "_source": "git://github.com/pubnub/pubnub-rickshaw.git",
+  "_target": "~0.1.1",
+  "_originalSource": "eon-rickshaw",
+  "_direct": true
+}

@@ -1,0 +1,12 @@
+{
+  "name": "pubnub",
+  "version": "3.7.8",
+  "main": "web/pubnub.min.js",
+  "license": "https://github.com/pubnub/javascript/blob/master/LICENSE",
+  "ignore" : [ "**/*", "!web/pubnub.js", "!web/pubnub.min.js"],
+  "keywords": [
+    "pubnub",
+    "javascript",
+    "realtime"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "eon-mapbox",
+  "version": "0.1.1",
+  "homepage": "https://github.com/pubnub/pubnub-mapbox",
+  "authors": [
+    "Ian Jennings <ian@meetjennings.com>"
+  ],
+  "description": "Mapbox Realtime Maps with PubNub. Part of the EON Framework.",
+  "main": "pubnub-mapbox.js",
+  "keywords": [
+    "maps",
+    "pubnub",
+    "google",
+    "maps",
+    "realtime",
+    "marker",
+    "uber",
+    "lyft",
+    "latlong",
+    "lat",
+    "long",
+    "streaming"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pubnub": "~3.7.8"
+  }
+}
