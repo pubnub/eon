@@ -23,7 +23,7 @@
 
   <body>
 
-  <style>
+    <style>
   .c3-region-1 {
     fill: #dd3333;
     fill-opacity: 0.8
@@ -118,55 +118,6 @@ var origins = {
   ]
 };
 
-<<<<<<< HEAD
-    // eon.rickshaw
-    var graph = new Rickshaw.Graph( {
-      element: document.getElementById("rickshaw-chart"),
-      width: 900,
-      height: 500,
-      renderer: 'area',
-      stroke: true,
-      preserve: true,
-      series: [
-        {
-          color: 'steelblue',
-          name: 'Cats',
-          data: []
-        },
-        {
-          color: 'lightblue',
-          name: 'Dogs',
-          data: []
-        }
-      ]
-    });
-
-    graph.render();
-
-    new eon.rickshaw({
-      channel: 'rickshaw-channel-1',
-      graph: graph
-    });
-
-    // eon.c3
-    var chart = new eon.c3({
-      channel: "c3-bar",
-      generate: {
-        bindto: '#c3-chart',
-        data: {
-          columns: [],
-          labels: true,
-          type: 'bar'
-        },
-        bar: {
-          width: {
-            ratio: 0.5
-          }
-        },
-        tooltip: {
-            show: false
-        }
-=======
 var copy = function (data) {
   return JSON.parse(JSON.stringify(data));
 }
@@ -252,14 +203,20 @@ var graph = new Rickshaw.Graph( {
 
 graph.render();
 
+var channels = [
+  'mapbox-' + Math.ceil(Math.random() * 10000),
+  'c3-' + Math.ceil(Math.random() * 10000),
+  'rickshaw-' + Math.ceil(Math.random() * 10000)
+];
+
 new eon.rickshaw({
-  channel: 'rickshaw-channel-1',
+  channel: channels[2],
   graph: graph
 });
 
 // eon.c3
 var chart = new eon.c3({
-  channel: "c3-bar",
+  channel:  channels[1],
   generate: {
     bindto: '#c3-chart',
     data: {
@@ -277,7 +234,6 @@ var chart = new eon.c3({
     bar: {
       width: {
         ratio: 0.5
->>>>>>> master
       }
     },
     tooltip: {
@@ -290,26 +246,11 @@ var chart = new eon.c3({
 L.mapbox.accessToken = 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg';
 var map = L.mapbox.map('map', 'ianjennings.06d6eddb');
 
-var channel = 'pubnub-mapbox';
-
-<<<<<<< HEAD
-    var tacos = new eon.mapbox({
-      map: map,
-      channel: channel
-    });
-
-    tacos.follow({
-      index: 3,
-      zoom: 13
-    });
-    </script>
-=======
 var tacos = new eon.mapbox({
   map: map,
-  channel: channel
+  channel:  channels[0]
 });
 </script>
->>>>>>> master
 
 <script>
 
@@ -319,112 +260,24 @@ var pubnub = PUBNUB.init({
   subscribe_key: 'demo'
 });
 
-<<<<<<< HEAD
-
-    var me = {
-      icon: {
-        'marker-color': '#b35258'
-      }
-    };
-    var them = {
-      icon: {
-        'marker-color': '#c7e4de'
-      }
-    };
-
-    var torchys = [
-      {
-        latlng: [30.370375, -97.756138],
-        options: them
-      },
-      {
-        latlng: [30.323118, -97.739144],
-        options: them
-      },
-      {
-        latlng: [30.302816, -97.699490],
-        options: them
-      },
-      {
-        latlng: [30.293479, -97.742405],
-        options: me
-      },
-      {
-        latlng: [30.250337, -97.754593],
-        options: them
-      },
-      {
-        latlng: [30.236689, -97.762730],
-        options: them
-      }
-    ];
-=======
 map.setView(data.mapbox()[0].latlng, 13);
->>>>>>> master
 
 setInterval(function(){
 
-<<<<<<< HEAD
-      var new_torchys = JSON.parse(JSON.stringify(torchys));
-      for (var i = 0; i < new_torchys.length; i++) {
-
-        new_torchys[i] = {
-          options: new_torchys[i].options,
-          latlng: [
-            new_torchys[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
-            new_torchys[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
-          ]
-        }
-
-      }
-
-      pubnub.publish({
-        channel: channel,
-        message: new_torchys
-      });
-
-      pubnub.publish({
-        channel: 'c3-bar',
-        message: {
-          columns: [
-            ['Austin', Math.floor(Math.random() * 99)],
-            ['New York', Math.floor(Math.random() * 99)],
-            ['San Francisco', Math.floor(Math.random() * 99)],
-            ['Portland', Math.floor(Math.random() * 99)]
-          ]
-        }
-      });
-
-      pubnub.publish({
-        channel: 'rickshaw-channel-1',
-        message: {
-          y: [
-            Math.random() * 99,
-            Math.random() * 99
-          ],
-          x: new Date().getTime()
-        }
-      });
-
-    }, 1000);
-    </script>
-=======
   pubnub.publish({
-    channel: channel,
+    channel:  channels[0],
     message: data.mapbox()
   });
 
   pubnub.publish({
-    channel: 'c3-bar',
+    channel: channels[1],
     message: {
       columns: data.c3()
     }
   });
 
-  console.log(data.rickshaw())
-
   pubnub.publish({
-    channel: 'rickshaw-channel-1',
+    channel: channels[2],
     message: {
       y: data.rickshaw(),
       x: new Date().getTime()
@@ -433,7 +286,6 @@ setInterval(function(){
 
 }, 2000);
 </script>
->>>>>>> master
 
 <div class="container">
 

@@ -182,14 +182,20 @@ var graph = new Rickshaw.Graph( {
 
 graph.render();
 
+var channels = [
+  'mapbox-' + Math.ceil(Math.random() * 10000),
+  'c3-' + Math.ceil(Math.random() * 10000),
+  'rickshaw-' + Math.ceil(Math.random() * 10000)
+];
+
 new eon.rickshaw({
-  channel: 'rickshaw-channel-1',
+  channel: channels[2],
   graph: graph
 });
 
 // eon.c3
 var chart = new eon.c3({
-  channel: "c3-bar",
+  channel:  channels[1],
   generate: {
     bindto: '#c3-chart',
     data: {
@@ -219,11 +225,9 @@ var chart = new eon.c3({
 L.mapbox.accessToken = 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg';
 var map = L.mapbox.map('map', 'ianjennings.06d6eddb');
 
-var channel = 'pubnub-mapbox';
-
 var tacos = new eon.mapbox({
   map: map,
-  channel: channel
+  channel:  channels[0]
 });
 </script>
 
@@ -240,21 +244,19 @@ map.setView(data.mapbox()[0].latlng, 13);
 setInterval(function(){
 
   pubnub.publish({
-    channel: channel,
+    channel:  channels[0],
     message: data.mapbox()
   });
 
   pubnub.publish({
-    channel: 'c3-bar',
+    channel: channels[1],
     message: {
       columns: data.c3()
     }
   });
 
-  console.log(data.rickshaw())
-
   pubnub.publish({
-    channel: 'rickshaw-channel-1',
+    channel: channels[2],
     message: {
       y: data.rickshaw(),
       x: new Date().getTime()
