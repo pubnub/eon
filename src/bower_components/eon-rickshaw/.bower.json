@@ -1,6 +1,6 @@
 {
   "name": "eon-rickshaw",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/pubnub/pubnub-rickshaw",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
@@ -30,14 +30,13 @@
     "pubnub": "~3.7.8",
     "d3": "~3.5.5"
   },
-  "_release": "0.1.1",
+  "_release": "0.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.1.1",
-    "commit": "9f2673107ba1729fb6d74ab9b0dae0f05d221383"
+    "tag": "0.1.2",
+    "commit": "d8067eea9b8912313a8d3b64d6c484994c28b5a9"
   },
   "_source": "git://github.com/pubnub/pubnub-rickshaw.git",
   "_target": "~0.1.1",
-  "_originalSource": "eon-rickshaw",
-  "_direct": true
+  "_originalSource": "eon-rickshaw"
 }

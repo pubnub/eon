@@ -1,6 +1,6 @@
 {
   "name": "eon-mapbox",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/pubnub/pubnub-mapbox",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
@@ -32,14 +32,13 @@
   "dependencies": {
     "pubnub": "~3.7.8"
   },
-  "_release": "0.1.1",
+  "_release": "0.1.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.1.1",
-    "commit": "44c78ce431183c36262619402e212781942c4a36"
+    "tag": "0.1.2",
+    "commit": "0171198d05d15d42fe5ed2e6b194407a4069f089"
   },
   "_source": "git://github.com/pubnub/pubnub-mapbox.git",
   "_target": "~0.1.1",
-  "_originalSource": "eon-mapbox",
-  "_direct": true
+  "_originalSource": "eon-mapbox"
 }

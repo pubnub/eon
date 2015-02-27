@@ -171,3 +171,6 @@ var pubnub_mapbox = function (options) {
   setInterval(self.refresh, self.refreshRate);
 
 };
+
+var eon = eon || {};
+eon.mapbox = pubnub_mapbox;

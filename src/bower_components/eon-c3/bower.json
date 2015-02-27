@@ -1,12 +1,12 @@
 {
   "name": "eon-c3",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/pubnub/pubnub-c3",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
   ],
   "description": "C3 Realtime Charts with PubNub. Part of the EON Framework.",
-  "main": "js/pubnub-c3.js",
+  "main": "pubnub-c3.js",
   "keywords": [
     "pubnub",
     "d3",

@@ -3,6 +3,190 @@ layout: master
 title: EON
 ---
 
+    <div id="rickshaw-chart"></div>
+    <div id="c3-chart"></div>
+    <div id="map"></div>
+
+    <script>
+
+    /*
+    purple-darkest: #91688C;
+    pubnub-medium:  #6b476c;
+    purple-black:   #3a2b4a;
+    black:          #160e14;
+    red-light:      #b35258;
+    red-dark:       #601e19;
+    blue:           #c7e4de;
+    purple-light:   #91688c;
+    */
+
+    // helper function
+    function getNonZeroRandomNumber(){
+      var random = Math.floor(Math.random()*199) - 99;
+      if(random==0) return getNonZeroRandomNumber();
+      return random;
+    }
+
+    // eon.rickshaw
+    var graph = new Rickshaw.Graph( {
+      element: document.getElementById("rickshaw-chart"),
+      width: 900,
+      height: 500,
+      renderer: 'area',
+      stroke: true,
+      preserve: true,
+      series: [
+        {
+          color: 'steelblue',
+          name: 'Cats',
+          data: []
+        },
+        {
+          color: 'lightblue',
+          name: 'Dogs',
+          data: []
+        }
+      ]
+    });
+
+    graph.render();
+
+    new eon.rickshaw({
+      channel: 'rickshaw-channel-1',
+      graph: graph
+    });
+
+    // eon.c3
+    var chart = new eon.c3({
+      channel: "c3-bar",
+      generate: {
+        bindto: '#c3-chart',
+        data: {
+          columns: [],
+          labels: true,
+          type: 'bar'
+        },
+        bar: {
+          width: {
+            ratio: 0.5
+          }
+        },
+        tooltip: {
+            show: false
+        }
+      }
+    });
+
+    // eon.mapbox
+    L.mapbox.accessToken = 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg';
+    var map = L.mapbox.map('map', 'ianjennings.06d6eddb');
+
+    var channel = 'pubnub-mapbox';
+
+    var tacos = new eon.mapbox({
+      map: map,
+      channel: channel
+    });
+
+    tacos.follow({
+      index: 3,
+      zoom: 13
+    });
+    </script>
+
+    <script>
+
+    // pubnub
+    var pubnub = PUBNUB.init({
+      publish_key: 'demo',
+      subscribe_key: 'demo'
+    });
+
+
+    var me = {
+      icon: {
+        'marker-color': '#b35258'
+      }
+    };
+    var them = {
+      icon: {
+        'marker-color': '#c7e4de'
+      }
+    };
+
+    var torchys = [
+      {
+        latlng: [30.370375, -97.756138],
+        options: them
+      },
+      {
+        latlng: [30.323118, -97.739144],
+        options: them
+      },
+      {
+        latlng: [30.302816, -97.699490],
+        options: them
+      },
+      {
+        latlng: [30.293479, -97.742405],
+        options: me
+      },
+      {
+        latlng: [30.250337, -97.754593],
+        options: them
+      },
+      {
+        latlng: [30.236689, -97.762730],
+        options: them
+      }
+    ];
+
+    setInterval(function(){
+
+      var new_torchys = JSON.parse(JSON.stringify(torchys));
+      for (var i = 0; i < new_torchys.length; i++) {
+
+        new_torchys[i] = {
+          options: new_torchys[i].options,
+          latlng: [
+            new_torchys[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
+            new_torchys[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
+          ]
+        }
+
+      }
+
+      pubnub.publish({
+        channel: channel,
+        message: new_torchys
+      });
+
+      pubnub.publish({
+        channel: 'c3-bar',
+        message: {
+          columns: [
+            ['Austin', Math.floor(Math.random() * 99)],
+            ['New York', Math.floor(Math.random() * 99)],
+            ['San Francisco', Math.floor(Math.random() * 99)],
+            ['Portland', Math.floor(Math.random() * 99)]
+          ]
+        }
+      });
+
+      pubnub.publish({
+        channel: 'rickshaw-channel-1',
+        message: {
+          y: [
+            Math.random() * 99,
+            Math.random() * 99
+          ],
+          x: new Date().getTime()
+        }
+      });
+
+    }, 1000);
+    </script>
+
 <div class="container">
 
   <div class="row">
@@ -24,7 +208,7 @@ title: EON
     </div>
 
     <div class="col-md-4">
-      
+
       <div class="well">
         Code Here
       </div>
@@ -36,9 +220,9 @@ title: EON
   <hr />
 
   <div class="row">
-    
+
     <div class="col-md-4">
-      
+
       <div class="well">
         <img src="http://placehold.it/350x150" width="100%"/>
         <h4>C3 Charts</h4>
@@ -48,7 +232,7 @@ title: EON
     </div>
 
     <div class="col-md-4">
-      
+
       <div class="well">
         <img src="http://placehold.it/350x150" width="100%"/>
         <h4>ShutterStock Rickshaw</h4>
@@ -56,9 +240,9 @@ title: EON
       </div>
 
     </div>
-    
+
     <div class="col-md-4">
-      
+
       <div class="well">
         <img src="http://placehold.it/350x150" width="100%"/>
         <h4>Maps</h4>

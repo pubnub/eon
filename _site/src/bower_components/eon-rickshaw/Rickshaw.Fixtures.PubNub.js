@@ -33,7 +33,7 @@ Rickshaw.Fixtures.PubNub = function (options) {
         channel: options.channel,
         start: timetoken,
          callback: function(payload) {
-           
+
            var msgs = payload[0];
            var start = payload[1];
            var end = payload[2];
@@ -57,7 +57,7 @@ Rickshaw.Fixtures.PubNub = function (options) {
 
             all_messages.reverse();
              i = 0;
-             while(i < all_messages.length) {              // 
+             while(i < all_messages.length) {              //
                self.pushMessage(all_messages[i]);
                i++;
              }
@@ -77,13 +77,13 @@ Rickshaw.Fixtures.PubNub = function (options) {
     var i = 0;
     while(i < m.y.length) {
 
-      options.graph.series[i].data.push({ 
-        x: m.x, 
+      options.graph.series[i].data.push({
+        x: m.x,
         y: m.y[i]
       });
 
       i++;
-    
+
     }
 
     // shift the array if we're over limit
@@ -122,3 +122,6 @@ Rickshaw.Fixtures.PubNub = function (options) {
   }
 
 };
+
+var eon = eon || {};
+eon.rickshaw = Rickshaw.Fixtures.PubNub;

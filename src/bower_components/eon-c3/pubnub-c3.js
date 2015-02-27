@@ -196,3 +196,6 @@ var pubnub_c3 = function(options) {
   }
 
 };
+
+var eon = eon || {};
+eon.c3 = pubnub_c3;

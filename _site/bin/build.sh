@@ -1,1 +1,0 @@
-sh bin/compressjs.sh commander/lib/pubnub.js commander/lib/pubnub-crypto.js commander/lib/pubnub-sync.js commander/lib/jquery.cookie.js commander/setup.js commander/client.js commander/widgets/client/*.js
