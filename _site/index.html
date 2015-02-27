@@ -24,27 +24,10 @@
         fill: #dd3333;
         fill-opacity: 0.8
       }
-      #dashboard {
-        position: relative;
-        height: 600px;
-      }
+
       #map {
         width:100%;
         height: 600px;
-      }
-      #rickshaw {
-        z-index: 2;
-        position: absolute;
-        left: 10px;
-        bottom: 30px;
-      }
-      #c3 {
-        z-index: 2;
-        position: absolute;
-        right: 10px;
-        width: 200px;
-        height: 100px;
-        top: 10px;
       }
     </style>
 
@@ -52,15 +35,9 @@
 
   <body>
 
-    <div id="dashboard">
-      <div id="rickshaw">
         <div id="rickshaw-chart"></div>
-      </div>
-      <div id="c3">
-        <div id="c3-chart"></div>
-      </div>
-      <div id="map"></div>
-    </div>
+    <div id="c3-chart"></div>
+    <div id="map"></div>
 
     <script>
 
@@ -82,120 +59,23 @@
       return random;
     }
 
-    var me = {
-      icon: {
-        'marker-color': '#b35258'
-      }
-    };
-    var them = {
-      icon: {
-        'marker-color': '#c7e4de'
-      }
-    };
-
-    var origins = {
-      mapbox: [
-        {
-          latlng: [30.293479, -97.742405],
-          options: me
-        },
-        {
-          latlng: [30.370375, -97.756138],
-          options: them
-        },
-        {
-          latlng: [30.323118, -97.739144],
-          options: them
-        },
-        {
-          latlng: [30.302816, -97.699490],
-          options: them
-        },
-        {
-          latlng: [30.250337, -97.754593],
-          options: them
-        }
-      ]
-    };
-
-    var copy = function (data) {
-      return JSON.parse(JSON.stringify(data));
-    }
-
-    var data = {
-      mapbox: function(){
-
-        var new_data = copy(origins.mapbox);
-        for (var i = 0; i < new_data.length; i++) {
-
-          new_data[i] = {
-            options: new_data[i].options,
-            latlng: [
-              new_data[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
-              new_data[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
-            ]
-          }
-
-        }
-
-        return new_data;
-
-      },
-      rickshaw: function(){
-
-        return [
-          Math.floor(Math.random() * 99),
-          Math.floor(Math.random() * 99),
-          Math.floor(Math.random() * 99),
-          Math.floor(Math.random() * 99),
-          Math.floor(Math.random() * 99)
-        ];
-
-      },
-      c3: function() {
-        return [
-          ['Me', Math.floor(Math.random() * 99)],
-          ['Nick', Math.floor(Math.random() * 99)],
-          ['Ritika', Math.floor(Math.random() * 99)],
-          ['Emily', Math.floor(Math.random() * 99)],
-          ['Sami', Math.floor(Math.random() * 99)]
-        ]
-      }
-    }
-
-
     // eon.rickshaw
     var graph = new Rickshaw.Graph( {
       element: document.getElementById("rickshaw-chart"),
-      width: 300,
-      height: 200,
-      renderer: 'line',
+      width: 900,
+      height: 500,
+      renderer: 'area',
       stroke: true,
       preserve: true,
       series: [
         {
-          color: '#b35258',
-          name: 'Me',
+          color: 'steelblue',
+          name: 'Cats',
           data: []
         },
         {
-          color: '#c7e4de',
-          name: 'Nick',
-          data: []
-        },
-        {
-          color: '#c7e4de',
-          name: 'Ritika',
-          data: []
-        },
-        {
-          color: '#c7e4de',
-          name: 'Emily',
-          data: []
-        },
-        {
-          color: '#c7e4de',
-          name: 'Sami',
+          color: 'lightblue',
+          name: 'Dogs',
           data: []
         }
       ]
@@ -215,15 +95,8 @@
         bindto: '#c3-chart',
         data: {
           columns: [],
-          labels: false,
-          type: 'bar',
-          colors: {
-            Me: '#b35258',
-            Nick: '#c7e4de',
-            Ritika: '#c7e4de',
-            Emily: '#c7e4de',
-            Sami: '#c7e4de'
-          }
+          labels: true,
+          type: 'bar'
         },
         bar: {
           width: {
@@ -246,6 +119,11 @@
       map: map,
       channel: channel
     });
+
+    tacos.follow({
+      index: 3,
+      zoom: 13
+    });
     </script>
 
     <script>
@@ -256,33 +134,89 @@
       subscribe_key: 'demo'
     });
 
-    map.setView(data.mapbox()[0].latlng, 13);
+
+    var me = {
+      icon: {
+        'marker-color': '#b35258'
+      }
+    };
+    var them = {
+      icon: {
+        'marker-color': '#c7e4de'
+      }
+    };
+
+    var torchys = [
+      {
+        latlng: [30.370375, -97.756138],
+        options: them
+      },
+      {
+        latlng: [30.323118, -97.739144],
+        options: them
+      },
+      {
+        latlng: [30.302816, -97.699490],
+        options: them
+      },
+      {
+        latlng: [30.293479, -97.742405],
+        options: me
+      },
+      {
+        latlng: [30.250337, -97.754593],
+        options: them
+      },
+      {
+        latlng: [30.236689, -97.762730],
+        options: them
+      }
+    ];
 
     setInterval(function(){
 
+      var new_torchys = JSON.parse(JSON.stringify(torchys));
+      for (var i = 0; i < new_torchys.length; i++) {
+
+        new_torchys[i] = {
+          options: new_torchys[i].options,
+          latlng: [
+            new_torchys[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
+            new_torchys[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
+          ]
+        }
+
+      }
+
       pubnub.publish({
         channel: channel,
-        message: data.mapbox()
+        message: new_torchys
       });
 
       pubnub.publish({
         channel: 'c3-bar',
         message: {
-          columns: data.c3()
+          columns: [
+            ['Austin', Math.floor(Math.random() * 99)],
+            ['New York', Math.floor(Math.random() * 99)],
+            ['San Francisco', Math.floor(Math.random() * 99)],
+            ['Portland', Math.floor(Math.random() * 99)]
+          ]
         }
       });
-
-      console.log(data.rickshaw())
 
       pubnub.publish({
         channel: 'rickshaw-channel-1',
         message: {
-          y: data.rickshaw(),
+          y: [
+            Math.random() * 99,
+            Math.random() * 99
+          ],
           x: new Date().getTime()
         }
       });
 
-    }, 2000);
+    }, 1000);
     </script>
 
 <div class="container">
