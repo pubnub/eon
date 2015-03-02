@@ -36,12 +36,6 @@
     width:100%;
     height: 600px;
   }
-  #rickshaw {
-    z-index: 2;
-    position: absolute;
-    left: 10px;
-    bottom: 30px;
-  }
   #c3 {
     z-index: 2;
     position: absolute;
@@ -50,12 +44,12 @@
     height: 100px;
     top: 10px;
   }
+  .leaflet-control-container {
+    display: none;
+  }
 </style>
 
 <div id="dashboard">
-  <div id="rickshaw">
-    <div id="rickshaw-chart"></div>
-  </div>
   <div id="c3">
     <div id="c3-chart"></div>
   </div>
@@ -141,17 +135,6 @@ var data = {
     return new_data;
 
   },
-  rickshaw: function(){
-
-    return [
-      Math.floor(Math.random() * 99),
-      Math.floor(Math.random() * 99),
-      Math.floor(Math.random() * 99),
-      Math.floor(Math.random() * 99),
-      Math.floor(Math.random() * 99)
-    ];
-
-  },
   c3: function() {
     return [
       ['Me', Math.floor(Math.random() * 99)],
@@ -163,56 +146,10 @@ var data = {
   }
 }
 
-
-// eon.rickshaw
-var graph = new Rickshaw.Graph( {
-  element: document.getElementById("rickshaw-chart"),
-  width: 300,
-  height: 200,
-  renderer: 'line',
-  stroke: true,
-  preserve: true,
-  series: [
-    {
-      color: '#b35258',
-      name: 'Me',
-      data: []
-    },
-    {
-      color: '#c7e4de',
-      name: 'Nick',
-      data: []
-    },
-    {
-      color: '#c7e4de',
-      name: 'Ritika',
-      data: []
-    },
-    {
-      color: '#c7e4de',
-      name: 'Emily',
-      data: []
-    },
-    {
-      color: '#c7e4de',
-      name: 'Sami',
-      data: []
-    }
-  ]
-});
-
-graph.render();
-
 var channels = [
   'mapbox-' + Math.ceil(Math.random() * 10000),
-  'c3-' + Math.ceil(Math.random() * 10000),
-  'rickshaw-' + Math.ceil(Math.random() * 10000)
+  'c3-' + Math.ceil(Math.random() * 10000)
 ];
-
-new eon.rickshaw({
-  channel: channels[2],
-  graph: graph
-});
 
 // eon.c3
 var chart = new eon.c3({
@@ -273,14 +210,6 @@ setInterval(function(){
     channel: channels[1],
     message: {
       columns: data.c3()
-    }
-  });
-
-  pubnub.publish({
-    channel: channels[2],
-    message: {
-      y: data.rickshaw(),
-      x: new Date().getTime()
     }
   });
 
