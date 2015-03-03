@@ -1,0 +1,68 @@
+<html>
+  <head>
+
+    <link rel="stylesheet" type="text/css" href="../bower_components/c3/c3.min.css">
+    <script src="../bower_components/pubnub/web/pubnub.min.js"></script>
+    <script src="../bower_components/d3/d3.min.js"></script>
+    <script src="../bower_components/c3/c3.min.js"></script>
+
+    <script src="../pubnub-c3.js"></script>
+
+    <style>
+      .c3-region-1 {
+        fill: #dd3333;
+        fill-opacity: 0.8
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      eon.chart({
+        history: true,
+        channel: "c3-super-spline",
+        flow: {
+          duration: 1
+        },
+        generate: {
+          bindto: '#chart',
+          data: {
+            x: 'x',
+            labels: false
+          },
+          axis : {
+            x : {
+              type : 'timeseries',
+              tick: {
+                format: '%H:%M:%S'
+              }
+            }
+          }
+        }
+      });
+    </script>
+    <script>
+      var pubnub2 = PUBNUB.init({
+        publish_key: 'demo',
+        subscribe_key: 'demo'
+      });
+      setInterval(function(){
+
+        pubnub2.publish({
+          channel: 'c3-super-spline',
+          message: {
+            columns: [
+              ['x', new Date().getTime()],
+              ['Austin', Math.floor(Math.random() * 99)],
+              ['New York', Math.floor(Math.random() * 99)],
+              ['San Francisco', Math.floor(Math.random() * 99)],
+              ['Portland', Math.floor(Math.random() * 99)]
+            ]
+          }
+        });
+
+      }, 500);
+    </script>
+  </body>
+</html>

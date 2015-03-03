@@ -1,0 +1,54 @@
+<html>
+  <head>
+
+    <link rel="stylesheet" type="text/css" href="../bower_components/c3/c3.min.css">
+    <script src="../bower_components/pubnub/web/pubnub.min.js"></script>
+    <script src="../bower_components/d3/d3.min.js"></script>
+    <script src="../bower_components/c3/c3.min.js"></script>
+
+    <script src="../pubnub-c3.js"></script>
+    <style>
+      .c3-region-1 {
+        fill: #dd3333;
+        fill-opacity: 0.8
+      }
+    </style>
+
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      eon.chart({
+        channel: "c3-donut",
+        generate: {
+          bindto: '#chart',
+          data: {
+            labels: true,
+            type: 'donut'
+          }
+        }
+      });
+    </script>
+    <script>
+      var pubnub2 = PUBNUB.init({
+        publish_key: 'demo',
+        subscribe_key: 'demo'
+      });
+      setInterval(function(){
+
+        pubnub2.publish({
+          channel: 'c3-donut',
+          message: {
+            columns: [
+              ['Austin', Math.floor(Math.random() * 99)],
+              ['New York', Math.floor(Math.random() * 99)],
+              ['San Francisco', Math.floor(Math.random() * 99)],
+              ['Portland', Math.floor(Math.random() * 99)]
+            ]
+          }
+        });
+
+      }, 1000);
+    </script>
+  </body>
+</html>

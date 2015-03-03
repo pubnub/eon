@@ -7,7 +7,7 @@
     <title>EON</title>
 
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -16,15 +16,15 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <link type="text/css" rel="stylesheet" href="src/build/eon.css">
-    <script src="src/build/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="lib/eon.css">
+    <script src="lib/eon.js"></script>
 
   </head>
 
   <body>
 
     <style>
-  .c3-region-1 {
+  .chart-region-1 {
     fill: #dd3333;
     fill-opacity: 0.8
   }
@@ -36,12 +36,13 @@
     width:100%;
     height: 600px;
   }
-  #c3 {
+  #chart {
+    opacity: .7;
     z-index: 2;
     position: absolute;
     right: 10px;
     width: 200px;
-    height: 100px;
+    height: 120px;
     top: 10px;
   }
   .leaflet-control-container {
@@ -50,8 +51,8 @@
 </style>
 
 <div id="dashboard">
-  <div id="c3">
-    <div id="c3-chart"></div>
+  <div id="chart">
+    <div id="chart-chart"></div>
   </div>
   <div id="map"></div>
 </div>
@@ -59,15 +60,78 @@
 <script>
 
 /*
-purple-darkest: #91688C;
-pubnub-medium:  #6b476c;
-purple-black:   #3a2b4a;
-black:          #160e14;
-red-light:      #b35258;
-red-dark:       #601e19;
-blue:           #c7e4de;
-purple-light:   #91688c;
+  purple-darkest: #91688C;
+  pubnub-medium:  #6b476c;
+  purple-black:   #3a2b4a;
+  black:          #160e14;
+  red-light:      #b35258;
+  red-dark:       #601e19;
+  blue:           #c7e4de;
+  purple-light:   #91688c;
 */
+
+
+var channel_map  = 'eon-map-' + Math.ceil(Math.random() * 10000);
+var channel_chart = 'eon-chart-' + Math.ceil(Math.random() * 10000);
+
+eon.chart({
+  channel:  channel_chart,
+  generate: {
+    bindto: '#chart-chart',
+    data: {
+      labels: false,
+      type: 'bar',
+      colors: {
+        Me: '#b35258',
+        Nick: '#C7E4DE',
+        Ritika: '#BBD6D1',
+        Emily: '#B0C9C4',
+        Sami: '#A5BDB8'
+      }
+    },
+    bar: {
+      width: {
+        ratio: 0.75
+      }
+    },
+    axis: {
+      x: {
+        show: false
+      }
+    },
+    legend: {
+      show: false
+    },
+    tooltip: {
+        show: false
+    },
+    size: {
+        height: 120,
+        width: 200
+    }
+  }
+});
+
+var map = eon.map({
+  mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+  mb_id: 'ianjennings.06d6eddb',
+  channel:  channel_map,
+  message: function(data) {
+    map.setView(data[0].latlng, 13);
+  }
+});
+</script>
+
+<script>
+
+// Disable drag and zoom handlers.
+map.dragging.disable();
+map.touchZoom.disable();
+map.doubleClickZoom.disable();
+map.scrollWheelZoom.disable();
+
+// Disable tap handler, if present.
+if (map.tap) map.tap.disable();
 
 // helper function
 function getNonZeroRandomNumber(){
@@ -76,11 +140,6 @@ function getNonZeroRandomNumber(){
   return random;
 }
 
-var me = {
-  icon: {
-    'marker-color': '#b35258'
-  }
-};
 var them = {
   icon: {
     'marker-color': '#c7e4de'
@@ -88,27 +147,54 @@ var them = {
 };
 
 var origins = {
-  mapbox: [
+  map: [
     {
       latlng: [30.293479, -97.742405],
-      options: me
+      options: {
+        icon: {
+          'marker-color': '#b35258'
+        }
+      }
     },
     {
       latlng: [30.370375, -97.756138],
-      options: them
+      options: {
+        icon: {
+          'marker-color': '#C7E4DE'
+        }
+      }
     },
     {
       latlng: [30.323118, -97.739144],
-      options: them
+      options: {
+        icon: {
+          'marker-color': '#BBD6D1'
+        }
+      }
     },
     {
       latlng: [30.302816, -97.699490],
-      options: them
+      options: {
+        icon: {
+          'marker-color': '#B0C9C4'
+        }
+      }
     },
     {
       latlng: [30.250337, -97.754593],
-      options: them
+      options: {
+        icon: {
+          'marker-color': '#A5BDB8'
+        }
+      }
     }
+  ],
+  chart: [
+    ['Me', 50],
+    ['Nick', 50],
+    ['Ritika', 50],
+    ['Emily', 50],
+    ['Sami', 50]
   ]
 };
 
@@ -117,9 +203,9 @@ var copy = function (data) {
 }
 
 var data = {
-  mapbox: function(){
+  map: function(){
 
-    var new_data = copy(origins.mapbox);
+    var new_data = copy(origins.map);
     for (var i = 0; i < new_data.length; i++) {
 
       new_data[i] = {
@@ -135,85 +221,45 @@ var data = {
     return new_data;
 
   },
-  c3: function() {
-    return [
-      ['Me', Math.floor(Math.random() * 99)],
-      ['Nick', Math.floor(Math.random() * 99)],
-      ['Ritika', Math.floor(Math.random() * 99)],
-      ['Emily', Math.floor(Math.random() * 99)],
-      ['Sami', Math.floor(Math.random() * 99)]
-    ]
+  chart: function() {
+
+    for (var i = 0; i < origins.chart.length; i++) {
+      origins.chart[i][1] = origins.chart[i][1] + (getNonZeroRandomNumber() * .1);
+    }
+
+    return origins.chart;
+
   }
 }
 
-var channels = [
-  'mapbox-' + Math.ceil(Math.random() * 10000),
-  'c3-' + Math.ceil(Math.random() * 10000)
-];
-
-// eon.c3
-var chart = new eon.c3({
-  channel:  channels[1],
-  generate: {
-    bindto: '#c3-chart',
-    data: {
-      columns: [],
-      labels: false,
-      type: 'bar',
-      colors: {
-        Me: '#b35258',
-        Nick: '#c7e4de',
-        Ritika: '#c7e4de',
-        Emily: '#c7e4de',
-        Sami: '#c7e4de'
-      }
-    },
-    bar: {
-      width: {
-        ratio: 0.5
-      }
-    },
-    tooltip: {
-        show: false
-    }
-  }
-});
-
-// eon.mapbox
-L.mapbox.accessToken = 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg';
-var map = L.mapbox.map('map', 'ianjennings.06d6eddb');
-
-var tacos = new eon.mapbox({
-  map: map,
-  channel:  channels[0]
-});
-</script>
-
-<script>
-
-// pubnub
 var pubnub = PUBNUB.init({
   publish_key: 'demo',
   subscribe_key: 'demo'
 });
 
-map.setView(data.mapbox()[0].latlng, 13);
-
 setInterval(function(){
 
   pubnub.publish({
-    channel:  channels[0],
-    message: data.mapbox()
-  });
-
-  pubnub.publish({
-    channel: channels[1],
-    message: {
-      columns: data.c3()
-    }
+    channel:  channel_map,
+    message: data.map()
   });
 
 }, 2000);
+
+
+setInterval(function(){
+
+  console.log('called')
+
+  pubnub.publish({
+    channel: channel_chart,
+    message: {
+      columns: data.chart()
+    }
+  });
+
+}, 750);
+
 </script>
 
 <div class="container">

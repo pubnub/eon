@@ -35,9 +35,7 @@
     "tests"
   ],
   "dependencies": {
-    "eon-c3": "~0.1.3",
-    "eon-mapbox": "~0.1.2",
-    "eon-rickshaw": "~0.1.2"
+    "pubnub": "~3.7.8"
   },
   "resolutions": {
     "d3": "~3.5.5"
