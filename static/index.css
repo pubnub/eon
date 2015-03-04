@@ -1,0 +1,42 @@
+/*
+  purple-darkest: #91688C;
+  pubnub-medium:  #6b476c;
+  purple-black:   #3a2b4a;
+  black:          #160e14;
+  red-light:      #b35258;
+  red-dark:       #601e19;
+  blue:           #c7e4de;
+  purple-light:   #91688c;
+*/
+#dashboard {
+  position: relative;
+  height: 600px;
+}
+#map {
+  width:100%;
+  height: 600px;
+}
+.leaflet-control-container {
+  display: none;
+}
+
+.chart {
+  opacity: .7;
+  z-index: 2;
+  position: absolute;
+}
+.chart.bar {
+  right: 20px;
+  width: 200px;
+  top: 20px;
+}
+.chart.spline {
+  right: 20px;
+  width: 200px;
+  bottom: 20px;
+}
+.chart.pie {
+  left: 20px;
+  width: 200px;
+  bottom: 20px;
+}

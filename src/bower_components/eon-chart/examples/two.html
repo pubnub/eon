@@ -1,0 +1,100 @@
+<html>
+  <head>
+
+    <link rel="stylesheet" type="text/css" href="../bower_components/c3/c3.min.css">
+    <script src="../bower_components/pubnub/web/pubnub.min.js"></script>
+    <script src="../bower_components/d3/d3.min.js"></script>
+    <script src="../bower_components/c3/c3.min.js"></script>
+
+    <script src="../pubnub-c3.js"></script>
+
+  </head>
+  <body>
+    <div id="chart"></div>
+    <div id="chart-2"></div>
+    <div id="chart-3"></div>
+    <script>
+      eon.chart({
+        channel: "c3-gauge",
+        generate: {
+          bindto: '#chart',
+          data: {
+            type: 'gauge',
+          },
+          gauge: {
+            min: 0,
+            max: 100
+          },
+          color: {
+            pattern: ['#FF0000', '#F6C600', '#60B044'],
+            threshold: {
+              values: [30, 60, 90]
+            }
+          }
+        }
+      });
+      eon.chart({
+        channel: "c3-gauge",
+        generate: {
+          bindto: '#chart-2',
+          data: {
+            type: 'gauge',
+          },
+          gauge: {
+            min: 0,
+            max: 100
+          },
+          color: {
+            pattern: ['#FF0000', '#F6C600', '#60B044'],
+            threshold: {
+              values: [30, 60, 90]
+            }
+          }
+        }
+      });
+      eon.chart({
+        channel: "c3-gauge2",
+        generate: {
+          bindto: '#chart-3',
+          data: {
+            type: 'gauge',
+          },
+          gauge: {
+            min: 0,
+            max: 100
+          },
+          color: {
+            pattern: ['#FF0000', '#F6C600', '#60B044'],
+            threshold: {
+              values: [30, 60, 90]
+            }
+          }
+        }
+      });
+    </script>
+    <script>
+      var pubnub2 = PUBNUB.init({
+        publish_key: 'demo',
+        subscribe_key: 'demo'
+      });
+
+      setInterval(function(){
+
+        pubnub2.publish({
+          channel: 'c3-gauge',
+          message: {
+            columns: [['data', Math.random() * 99]]
+          }
+        })
+        pubnub2.publish({
+          channel: 'c3-gauge2',
+          message: {
+            columns: [['data', Math.random() * 99]]
+          }
+        })
+
+      }, 1000);
+
+    </script>
+  </body>
+</html>

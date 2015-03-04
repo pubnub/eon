@@ -4,7 +4,7 @@
     "c3.css",
     "c3.js"
   ],
-  "version": "0.4.9",
+  "version": "0.4.8",
   "homepage": "https://github.com/masayuki0812/c3",
   "authors": [
     "Masayuki Tanaka <masayuki0812@mac.com>"
@@ -19,14 +19,10 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "htdocs",
-    "spec",
-    "src",
-    "package.json",
-    "component.json",
-    "Gruntfile.*"
+    "test",
+    "tests"
   ],
   "dependencies": {
-    "d3": "<=3.5.0"
+    "d3": "~3.4.4"
   }
 }

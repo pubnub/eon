@@ -1,6 +1,6 @@
 {
   "name": "eon-map",
-  "version": "0.1.6",
+  "version": "0.1.9",
   "homepage": "https://github.com/pubnub/eon-map",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
@@ -32,13 +32,14 @@
   "dependencies": {
     "pubnub": "~3.7.8"
   },
-  "_release": "0.1.6",
+  "_release": "0.1.9",
   "_resolution": {
     "type": "version",
-    "tag": "v0.1.6",
-    "commit": "a294e7bb4abaceea6753d16b5b59fca5610809dd"
+    "tag": "0.1.9",
+    "commit": "25deef04c520d8b7f3fdab0cd9db6ff77ac6f454"
   },
   "_source": "git://github.com/pubnub/eon-map.git",
-  "_target": "~0.1.2",
-  "_originalSource": "eon-map"
+  "_target": "~0.1.9",
+  "_originalSource": "eon-map",
+  "_direct": true
 }
