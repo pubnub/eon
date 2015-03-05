@@ -1,4 +1,3 @@
-
 var channel_map  = 'eon-map-' + Math.ceil(Math.random() * 10000);
 var channel_chart = 'eon-chart-' + Math.ceil(Math.random() * 10000);
 
@@ -75,7 +74,7 @@ eon.chart({
 eon.chart({
   channel: channel_chart,
   flow: {
-    duration: 100
+    duration: 1
   },
   generate: {
     bindto: '#pie-chart',
@@ -113,8 +112,7 @@ var map = eon.map({
   channel:  channel_map,
   message: function(data) {
     map.setView(data[0].latlng, 13);
-  },
-  refreshRate: 50
+  }
 });
 
 // Disable drag and zoom handlers.
@@ -240,17 +238,15 @@ setInterval(function(){
     message: data.map()
   });
 
-}, 2500);
+}, 3000);
 
 setInterval(function(){
-
-  var update = data.chart();
 
   pubnub.publish({
     channel: channel_chart,
     message: {
-      columns: update
+      columns: data.chart()
     }
   });
 
-}, 1000);
+}, 2000);

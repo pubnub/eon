@@ -40,6 +40,5 @@
   },
   "_source": "git://github.com/pubnub/eon-map.git",
   "_target": "~0.1.9",
-  "_originalSource": "eon-map",
-  "_direct": true
+  "_originalSource": "eon-map"
 }

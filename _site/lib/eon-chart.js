@@ -6964,7 +6964,7 @@ eon.c = {
     options.flow = options.flow || false;
     options.flow.length = options.flow.length || 0;
     options.limit = options.limit || 10;
-    options.rate = options.rate || 10; // refresh rate
+    options.rate = options.rate || 500; // refresh rate
     options.history = options.history || false;
 
     options.message = options.message || function(){};
@@ -7071,6 +7071,10 @@ eon.c = {
 
         if(options.flow) {
 
+          if(options.flow === true) {
+            options.flow = {};
+          }
+
           var trimLength = needsTrim();
 
           if(trimLength)  {
@@ -7085,7 +7089,9 @@ eon.c = {
             }
 
             renderNext();
+
           };
+
           self.chart.flow(options.flow);
 
         } else {
