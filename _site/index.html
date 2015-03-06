@@ -20,12 +20,17 @@
     <script src="lib/eon.js"></script>
 
     <link type="text/css" rel="stylesheet" href="static/index.css">
+    <link href='http://fonts.googleapis.com/css?family=Ropa+Sans|Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
   </head>
 
   <body>
 
     <div id="dashboard">
+  <div id="title">
+    <div class="logo">EON</div>
+    <div class="tagline">Realtime Dashboard Framework</div>
+  </div>
   <div class="chart bar">
     <div id="bar-chart"></div>
   </div>
@@ -38,26 +43,24 @@
   <div id="map"></div>
 </div>
 
-<script src="static/index.js"></script>
-
 <div class="container">
 
   <div class="row">
 
-    <div class="col-md-6">
-      <h1>EON Realtime Charts</h1>
-      <p>Real time charts that work with any platform.</p>
-    </div>
-    <div class="col-md-6">
-      <!-- <a class="btn btn-primary">Get Started</a> -->
+    <div class="col-md-12">
+
+      <h1>Stream Data Into Graphs</h1>
+      <p>EON displays data sent over a real time stream. All you need to do is supply that data in an array.</p>
+
+      <a class="btn btn-primary">Get Started</a>
     </div>
 
   </div>
 
   <div class="row">
 
-    <div class="col-md-8">
-      <img src="http://placehold.it/700x300" width="100%"/>
+    <div class="col-md-12">
+      <div id="body-spline"></div>
     </div>
 
     <div class="col-md-4">
@@ -164,6 +167,8 @@
 
 </div>
 
+<script src="static/dash.js"></script>
+<script src="static/body.js"></script>
 
   </body>
 </html>
