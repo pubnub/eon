@@ -37,11 +37,15 @@
       var channel = 'pubnub-mapbox-' + getNonZeroRandomNumber();
 
       var map = eon.map({
+        id: 'map',
         mb_id: 'ianjennings.l896mh2e',
         mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
         subscribe_key: 'demo',
         channel: channel,
-        connect: connect
+        connect: connect,
+        message: function (data) {
+          map.setView(data[3].latlng, 13);
+        }
       });
 
       function connect() {
@@ -99,10 +103,6 @@
                 new_torchys[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
                 new_torchys[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
               ]
-            }
-
-            if(i == 3) {
-              map.setView(new_torchys[i].latlng, 13);
             }
 
           }

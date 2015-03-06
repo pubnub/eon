@@ -107,10 +107,11 @@ eon.chart({
 });
 
 var map = eon.map({
+  id: 'map',
   mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
   mb_id: 'ianjennings.06d6eddb',
   channel:  channel_map,
-  message: function(data) {
+  message: function (data) {
     map.setView(data[0].latlng, 13);
   }
 });
@@ -205,7 +206,7 @@ var data = {
           new_data[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
           new_data[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
         ]
-      }
+      };
 
     }
 

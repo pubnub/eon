@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>EON</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script> -->
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +23,7 @@
 
     <link type="text/css" rel="stylesheet" href="static/index.css">
     <link href='http://fonts.googleapis.com/css?family=Ropa+Sans|Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night-blue.min.css"></link>
 
   </head>
 
@@ -63,17 +66,71 @@
       <div id="body-spline"></div>
     </div>
 
+  </div>
+  <div class="row">
+
     <div class="col-md-4">
+        <pre>
+<code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;http://pubnub.github.io/eon/lib/eon.js&quot;&gt;&lt;/script&gt;
+&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;http://pubnub.github.io/eon/lib/eon.css&quot; /&gt;</code>
+        </pre>
+    </div>
 
-      <div class="well">
-        Code Here
-      </div>
+    <div class="col-md-4">
+        <pre>
+<code class="javascript">eon.chart({
+  channel: 'eon-chart',
+  limit: 20,
+  history: true,
+  generate: {
+    bindto: '#body-spline'
+  }
+});</code>
+        </pre>
+    </div>
 
+    <div class="col-md-4">
+      <pre><code class="javascript">pubnub.publish({
+  channel:  'eon-chart',
+  message:  <span id="body-spline-data"></span>});</code></pre>
     </div>
 
   </div>
 
-  <hr />
+  <div class="row">
+
+    <div class="col-md-12">
+      <div id="eon-map-demo"></div>
+    </div>
+
+  </div>
+  <div class="row">
+
+    <div class="col-md-4">
+        <pre>
+<code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;http://pubnub.github.io/eon/lib/eon.js&quot;&gt;&lt;/script&gt;
+&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;lib/eon.css&quot; /&gt;</code>
+        </pre>
+    </div>
+
+    <div class="col-md-4">
+        <pre>
+<code class="javascript">eon.map({
+  channel: 'eon-map',
+  id: 'html-id',
+  mb_token: '...',
+  mb_id: 'ianjennings.l896mh2e'
+});</code>
+        </pre>
+    </div>
+
+    <div class="col-md-4">
+      <pre><code class="javascript">pubnub.publish({
+  channel:  'eon-map',
+  message:  <span id="body-map-data"></span>});</code></pre>
+    </div>
+
+  </div>
 
   <div class="row">
 
@@ -167,6 +224,7 @@
 
 </div>
 
+<script>hljs.initHighlightingOnLoad();</script>
 <script src="static/dash.js"></script>
 <script src="static/body.js"></script>
 

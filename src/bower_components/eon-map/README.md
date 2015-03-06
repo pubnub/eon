@@ -8,6 +8,7 @@ Real-time location tracking.
 
 ```js
 eon.map({
+  id: 'map',
   mb_token: 'mapbox api token',
   mb_id: 'mapbox map id',
   subscribe_key: 'demo',
@@ -21,7 +22,9 @@ eon.map({
 
 Parameter | Value | Default
 | :------------ |:---------------| -----:|
-| graph | Mapbox map object. | ```undefined```
+| id | The ID of the element where the map will be rendered. | ```undefined```
+| mb_token | Mapbox API Token. | ```undefined```
+| mb_id | Mapbox Map ID. | ```undefined```
 | subscribe_key | Your PubNub subscribe_key | ```demo```
 | history | Use PubNub history call to retrieve last message. This will display points at their last known location. Requires [PubNub storage](http://www.pubnub.com/how-it-works/storage-and-playback/) to be enabled. | ```false```
 | connect | This function fires once data has been retrieved from PubNub.  | ```function(){}```
@@ -43,6 +46,7 @@ Then, call ```eon.map({})```. Check out the table of options above for more info
 var channel = 'pubnub-mapbox';
 
 eon.map({
+  id: 'map',
   mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
   mb_id: 'ianjennings.l896mh2e',
   channel: channel,
