@@ -82,7 +82,7 @@ eon.m = {
 
         } else {
 
-          if(self.markers[i].lat !== seed[i].latlng[0] ||
+          if(self.markers[i].getLatLng().lat !== seed[i].latlng[0] ||
              self.markers[i].getLatLng().lng !== seed[i].latlng[1]) {
 
             if(animate) {

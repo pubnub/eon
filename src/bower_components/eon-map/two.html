@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8 />
+    <title>Taco Transport</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map, #eon-map-demo {
+        height: 300px;
+      }
+    </style>
+
+    <link href='lib/mapbox.css' rel='stylesheet' />
+    <script src='lib/mapbox.js'></script>
+
+    <script src="bower_components/pubnub/web/pubnub.min.js"></script>
+    <script src="pubnub-mapbox.js"></script>
+
+  </head>
+  <body>
+    <div id='map'></div>
+    <div id='eon-map-demo'></div>
+    <script>
+      function getNonZeroRandomNumber(){
+        var random = Math.floor(Math.random()*199) - 99;
+        if(random==0) return getNonZeroRandomNumber();
+        return random;
+      }
+    </script>
+    <script>
+
+      eon.map({
+        id: 'map',
+        mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+        mb_id: 'ianjennings.06d6eddb',
+        channel: '111',
+        connect: connect
+      });
+
+      var map = eon.map({
+        id: 'eon-map-demo',
+        mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+        mb_id: 'ianjennings.l896mh2e',
+        channel:  '222',
+        message: function(data) {
+          //map.setView(data[0].latlng, 13);
+        }
+      });
+
+      function connect() {
+
+        var point = {
+          latlng: [37.370375, -97.756138]
+        };
+
+        var pn = PUBNUB.init({
+          publish_key: 'demo'
+        });
+
+        setInterval(function(){
+
+          var new_point = JSON.parse(JSON.stringify(point));
+
+          new_point.latlng = [
+            new_point.latlng[0] + (getNonZeroRandomNumber() * 0.1),
+            new_point.latlng[1] + (getNonZeroRandomNumber() * 0.2)
+          ];
+
+          pn.publish({
+            channel: '111',
+            message: [new_point]
+          });
+
+          new_point.latlng = [
+            new_point.latlng[0] + (getNonZeroRandomNumber() * 0.1),
+            new_point.latlng[1] + (getNonZeroRandomNumber() * 0.2)
+          ];
+
+          pn.publish({
+            channel: '222',
+            message: [new_point]
+          });
+
+        }, 500);
+
+      };
+
+    </script>
+  </body>
+</html>

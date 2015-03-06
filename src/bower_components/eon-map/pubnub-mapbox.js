@@ -82,22 +82,17 @@ eon.m = {
 
         } else {
 
-          if(self.markers[i].lat !== seed[i].latlng[0] ||
-             self.markers[i].getLatLng().lng !== seed[i].latlng[1]) {
-
-            if(animate) {
-              self.animate(i, seed[i].latlng);
-            } else {
-              self.updateMarker(i, seed[i].latlng);
-            }
-
+          if(animate) {
+            self.animate(i, seed[i].latlng);
+          } else {
+            self.updateMarker(i, seed[i].latlng);
           }
 
         }
 
         if(typeof seed[i].options !== 'undefined') {
 
-          for(j in seed[i].options) {
+          for(var j in seed[i].options) {
 
             if(j == 'icon') {
               self.markers[i].setIcon(L.mapbox.marker.icon(seed[i].options[j]));
@@ -196,7 +191,7 @@ eon.m = {
     return self.map;
 
   }
-}
+};
 eon.map = function(o) {
   return new eon.m.create(o);
 };
