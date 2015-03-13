@@ -34,10 +34,11 @@ Parameter | Value | Default
 Include ```mapbox.css```, ```mapbox.js```, ```pubnub.js```, and ```pubnub_mapbox.js```.
 
 ```js
-<link href='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.css' rel='stylesheet' />
-<script src='https://api.tiles.mapbox.com/mapbox.js/v2.1.5/mapbox.js'></script>
-<script src="http://cdn.pubnub.com/pubnub-3.7.1.min.js"></script>
-<script src="pubnub_mapbox.js"></script>
+<link href="./lib/mapbox.css" rel="stylesheet" />
+<script src="./lib/mapbox.js"></script>
+
+<script src="./bower_components/pubnub/web/pubnub.min.js"></script>
+<script src="./pubnub-mapbox.js"></script>
 ```
 
 Then, call ```eon.map({})```. Check out the table of options above for more information.

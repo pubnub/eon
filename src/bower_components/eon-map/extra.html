@@ -17,11 +17,11 @@
       }
     </style>
 
-    <link href='lib/mapbox.css' rel='stylesheet' />
-    <script src='lib/mapbox.js'></script>
+    <link href="./lib/mapbox.css" rel="stylesheet" />
+    <script src="./lib/mapbox.js"></script>
 
-    <script src="bower_components/pubnub/web/pubnub.min.js"></script>
-    <script src="pubnub-mapbox.js"></script>
+    <script src="./bower_components/pubnub/web/pubnub.min.js"></script>
+    <script src="./pubnub-mapbox.js"></script>
 
   </head>
   <body>
@@ -64,27 +64,27 @@
         var torchys = [
           {
             latlng: [30.370375, -97.756138],
-            options: them
+            marker: them
           },
           {
             latlng: [30.323118, -97.739144],
-            options: them
+            marker: them
           },
           {
             latlng: [30.302816, -97.699490],
-            options: them
+            marker: them
           },
           {
             latlng: [30.293479, -97.742405],
-            options: me
+            marker: me
           },
           {
             latlng: [30.250337, -97.754593],
-            options: them
+            marker: them
           },
           {
             latlng: [30.236689, -97.762730],
-            options: them
+            marker: them
           }
         ];
 
@@ -98,7 +98,7 @@
           for (var i = 0; i < new_torchys.length; i++) {
 
             new_torchys[i] = {
-              options: new_torchys[i].options,
+              marker: new_torchys[i].marker,
               latlng: [
                 new_torchys[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
                 new_torchys[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
@@ -106,7 +106,6 @@
             }
 
           }
-
 
           pn.publish({
             channel: channel,
