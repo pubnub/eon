@@ -7175,7 +7175,9 @@ eon.m = {
 
       pubnub.subscribe({
         channel: channel,
-        connect: connect,
+        connect: function(err, data){
+          // console.log(err, data)
+        },
         message: function(message, env, channel) {
           eon.m.message(message, env, channel);
         }
@@ -7208,16 +7210,32 @@ eon.m = {
 
     L.mapbox.accessToken = options.mb_token;
 
+    var geo = {
+      bearing : function (lat1,lng1,lat2,lng2) {
+        var dLon = this._toRad(lng2-lng1);
+        var y = Math.sin(dLon) * Math.cos(this._toRad(lat2));
+        var x = Math.cos(this._toRad(lat1))*Math.sin(this._toRad(lat2)) - Math.sin(this._toRad(lat1))*Math.cos(this._toRad(lat2))*Math.cos(dLon);
+        var brng = this._toDeg(Math.atan2(y, x));
+        return ((brng + 360) % 360);
+      },
+      _toRad : function(deg) {
+         return deg * Math.PI / 180;
+      },
+      _toDeg : function(rad) {
+        return rad * 180 / Math.PI;
+      }
+    };
+
     options.id = options.id || false;
     options.channel = options.channel || false;
     options.subscribe_key = options.subscribe_key || eon.subscribe_key || 'demo';
     options.history = options.history || false;
     options.message = options.message || function(){};
     options.connect = options.connect || function(){};
+    options.rotate = options.rotate || false;
+    options.marker = options.marker || L.marker;
 
-    self.pubnub = PUBNUB || false;
-
-    self.markers = [];
+    self.markers = {};
 
     if(!options.id) {
       return console.error('You need to set an ID for your Mapbox element.');
@@ -7229,40 +7247,29 @@ eon.m = {
 
     self.lastUpdate = new Date().getTime();
 
+    self.pubnub = PUBNUB.init({
+      subscribe_key: options.subscribe_key
+    });
+
     self.update = function (seed, animate) {
 
-      var i = 0;
-      while(i < seed.length) {
+      for(var key in seed) {
 
-        if(typeof self.markers[i] == 'undefined') {
+        if(!self.markers.hasOwnProperty(key)) {
 
-          self.markers[i] = L.marker(seed[i].latlng);
-          self.markers[i].addTo(self.map);
+          var data = seed[key].data || {};
+
+          self.markers[key]= options.marker(seed[key].latlng, seed[key].data);
+          self.markers[key].addTo(self.map);
 
         } else {
 
-          if(self.markers[i].lat !== seed[i].latlng[0] ||
-             self.markers[i].getLatLng().lng !== seed[i].latlng[1]) {
-
-            if(animate) {
-              self.animate(i, seed[i].latlng);
-            } else {
-              self.updateMarker(i, seed[i].latlng);
-            }
-
+          if(animate) {
+            self.animate(key, seed[key].latlng);
+          } else {
+            self.updateMarker(key, seed[key].latlng);
           }
 
-        }
-
-        if(typeof seed[i].options !== 'undefined') {
-
-          for(j in seed[i].options) {
-
-            if(j == 'icon') {
-              self.markers[i].setIcon(L.mapbox.marker.icon(seed[i].options[j]));
-            }
-
-          }
         }
 
         i++;
@@ -7281,8 +7288,10 @@ eon.m = {
 
     self.animate = function (index, destination) {
 
+      var startlatlng = self.markers[index].getLatLng();
+
       self.animations[index] = {
-        start: self.markers[index].getLatLng(),
+        start: startlatlng,
         dest: destination,
         time: new Date().getTime(),
         length: new Date().getTime() - self.lastUpdate
@@ -7292,8 +7301,7 @@ eon.m = {
 
     self.refresh = function() {
 
-      var index = 0;
-      while(index < self.markers.length) {
+      for(var index in self.markers) {
 
         if(typeof self.animations[index] !== 'undefined') {
 
@@ -7313,6 +7321,10 @@ eon.m = {
 
           self.updateMarker(index, nextStep);
 
+          if(options.rotate) {
+            self.markers[index].options.angle = geo.bearing(position.lat, position.lng, lat, lng);
+          }
+
         }
 
         index++;
@@ -7320,10 +7332,6 @@ eon.m = {
       }
 
     };
-
-    self.pubnub.init({
-      subscribe_key: options.subscribe_key
-    });
 
     eon.m.subscribe(self.pubnub, options.channel, false, function(message, env, channel) {
 
@@ -7335,13 +7343,16 @@ eon.m = {
     if(options.history) {
 
       self.pubnub.history({
-        channel: channel,
+        channel: options.channel,
         count: 1,
         callback: function(m) {
-          if(m.length[0]) {
+
+          if(m[0].length) {
             self.update(m[0][0], true);
           }
+
           options.connect();
+
         }
      });
 
@@ -7355,7 +7366,7 @@ eon.m = {
     return self.map;
 
   }
-}
+};
 eon.map = function(o) {
   return new eon.m.create(o);
 };

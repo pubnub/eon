@@ -1,4 +1,3 @@
-var channel_map  = 'eon-map-';// + Math.ceil(Math.random() * 10000);
 var channel_chart = 'eon-chart-';// + Math.ceil(Math.random() * 10000);
 
 eon.chart({
@@ -106,13 +105,68 @@ eon.chart({
   }
 });
 
+L.RotatedMarker = L.Marker.extend({
+  options: { angle: 0 },
+  _setPos: function(pos) {
+    L.Marker.prototype._setPos.call(this, pos);
+    if (L.DomUtil.TRANSFORM) {
+      // use the CSS transform rule if available
+      this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
+    } else if (L.Browser.ie) {
+      // fallback for IE6, IE7, IE8
+      var rad = this.options.angle * L.LatLng.DEG_TO_RAD,
+      costheta = Math.cos(rad),
+      sintheta = Math.sin(rad);
+      this._icon.style.filter += ' progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\', M11=' +
+        costheta + ', M12=' + (-sintheta) + ', M21=' + sintheta + ', M22=' + costheta + ')';
+    }
+
+  }
+});
+
 var map = eon.map({
   id: 'map',
-  mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
   mb_id: 'ianjennings.06d6eddb',
-  channel:  channel_map,
-  message: function (data) {
-    map.setView(data[0].latlng, 13);
+  mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+  channel: 'sfo-flight-data',
+  rotate: true,
+  history: true,
+  marker: function (latlng, data) {
+
+    console.log(data)
+
+    var marker = new L.RotatedMarker(latlng, {
+      icon: L.icon({
+        iconUrl: '  http://i.imgur.com/obDmYn4.png',
+        iconSize: [24, 24]
+      })
+    });
+
+    var popup = '';
+    if(data[13]) {
+      popup = 'Flight <strong>' + data[13] + '</strong>';
+    }
+    if(data[11]) {
+      if(!popup.length) {
+        popup = 'Flight from ' + data[11];
+      } else {
+        popup += ' from ' + data[11];
+      }
+    }
+    if(data[12]) {
+      if(!popup.length) {
+        popup = 'Flight to ' + data[11];
+      } else {
+        popup += ' to ' + data[11];
+      }
+    }
+    if(!popup.length) {
+      popup = 'No data available';
+    }
+
+    marker.bindPopup(popup);
+
+    return marker;
   }
 });
 
@@ -195,24 +249,6 @@ var copy = function (data) {
 };
 
 var data = {
-  map: function(){
-
-    var new_data = copy(origins.map);
-    for (var i = 0; i < new_data.length; i++) {
-
-      new_data[i] = {
-        options: new_data[i].options,
-        latlng: [
-          new_data[i].latlng[0] + (getNonZeroRandomNumber() * 0.0002),
-          new_data[i].latlng[1] + (getNonZeroRandomNumber() * 0.0002)
-        ]
-      };
-
-    }
-
-    return new_data;
-
-  },
   chart: function() {
 
     for (var i = 0; i < origins.chart.length; i++) {
@@ -231,15 +267,6 @@ var pubnub = PUBNUB.init({
   publish_key: 'demo',
   subscribe_key: 'demo'
 });
-
-setInterval(function(){
-
-  pubnub.publish({
-    channel:  channel_map,
-    message: data.map()
-  });
-
-}, 3000);
 
 setInterval(function(){
 
