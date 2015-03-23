@@ -41,6 +41,6 @@
     "commit": "29acbcf64c2545bcf7e13d8770ca0bdfebe03203"
   },
   "_source": "git://github.com/pubnub/eon-chart.git",
-  "_target": "~0.1.13",
+  "_target": "0.1.17",
   "_originalSource": "eon-chart"
 }

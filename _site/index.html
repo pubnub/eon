@@ -23,13 +23,57 @@
 
     <link type="text/css" rel="stylesheet" href="static/index.css">
     <link href='http://fonts.googleapis.com/css?family=Ropa+Sans|Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow-night-blue.min.css"></link>
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow.min.css"></link>
 
   </head>
 
   <body>
+    <style type="text/css">
+body {
+  background-color: #efefef;
+}
+.first {
+  text-align: center;
+  padding: 60px;
+}
+.row.divider {
+  border-bottom: 1px solid #efefef;
+  margin-bottom: 60px;
+}
+.row.examples {
+  margin-bottom: 30px;
+}
+.row.title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+.row.code h4 {
+  text-align: center;
+  font-weight: bold;
+}
+.row.code pre {
+  background-color: #efefef;
+}
+.row.code.divider {
+  padding-bottom: 60px;
+}
+.row.charter {
+  margin-bottom: 30px;
+}
+.anithumb {
+  width: 100%;
+  display: block;
+  height: 230px;
+  background-position: center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  border-radius: 3px;
+}
+</style>
 
-    <div id="dashboard">
+<div id="dashboard">
   <div id="title">
     <div class="logo">EON</div>
     <div class="tagline">Realtime Dashboard Framework</div>
@@ -48,48 +92,75 @@
 
 <div class="container">
 
-  <div class="row">
+  <div class="row divider first">
 
     <div class="col-md-12">
 
-      <h1>Stream Data Into Graphs</h1>
-      <p>EON displays data sent over a real time stream. All you need to do is supply that data in an array.</p>
+      <h1>Realtime Charts, Graphs, and Maps.</h1>
+      <p>Build your realtime dashboard with EON. Stream data into a variety of maps and charts. Take over the world.</p>
 
       <a class="btn btn-primary">Get Started</a>
     </div>
 
   </div>
 
-  <div class="row">
+  <div class="row title">
+
+    <div class="col-md-12">
+      <h2>Realtime Charts.</h2>
+      <p>Powered by <a href="http://c3js.org/">C3</a>.</p>
+    </div>
+
+  </div>
+
+  <div class="row examples">
+
+    <div class="col-md-4">
+      <a href="#" class="anithumb" style="background-image: url('static/images/bar.gif');">
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="#" class="anithumb" style="background-image: url('static/images/donut.gif');">
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="#" class="anithumb" style="background-image: url('static/images/gauge.gif');">
+      </a>
+    </div>
+
+  </div>
+
+  <div class="row charter">
 
     <div class="col-md-12">
       <div id="body-spline"></div>
     </div>
 
   </div>
-  <div class="row">
+  <div class="row code divider">
 
     <div class="col-md-4">
-        <pre>
-<code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;http://pubnub.github.io/eon/lib/eon.js&quot;&gt;&lt;/script&gt;
-&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;http://pubnub.github.io/eon/lib/eon.css&quot; /&gt;</code>
-        </pre>
+        <h4>Include scripts and styles.</h4>
+        <pre><code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;http://pubnub.github.io/eon/lib/eon.js&quot;&gt;&lt;/script&gt;
+&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;http://pubnub.github.io/eon/lib/eon.css&quot; /&gt;</code></pre>
     </div>
 
     <div class="col-md-4">
-        <pre>
-<code class="javascript">eon.chart({
+        <h4>Define chart.</h4>
+        <pre><code class="javascript">eon.chart({
   channel: 'eon-chart',
   limit: 20,
   history: true,
   generate: {
     bindto: '#body-spline'
   }
-});</code>
-        </pre>
+});</code></pre>
     </div>
 
     <div class="col-md-4">
+      <h4>Publish data.</h4>
       <pre><code class="javascript">PUBNUB.publish({
   channel:  'eon-chart',
   message:  <span id="body-spline-data"></span>});</code></pre>
@@ -97,76 +168,70 @@
 
   </div>
 
-  <div class="row">
+  <div class="row title">
+
+    <div class="col-md-12">
+
+      <h2>Realtime Maps.</h2>
+      <p>Powered by <a href="http://mapbox.com/">Mapbox</a>.</p>
+
+    </div>
+
+  </div>
+
+  <div class="row examples">
+
+    <div class="col-md-4">
+      <a href="#" class="anithumb" style="background-image: url('static/images/bus.gif');">
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="#" class="anithumb" style="background-image: url('static/images/planes.gif');">
+      </a>
+    </div>
+
+    <div class="col-md-4">
+      <a href="#" class="anithumb" style="background-image: url('static/images/tacos.gif');">
+      </a>
+    </div>
+
+  </div>
+
+  <div class="row charter">
 
     <div class="col-md-12">
       <div id="eon-map-demo"></div>
     </div>
 
   </div>
-  <div class="row">
+  <div class="row code">
 
     <div class="col-md-4">
-        <pre>
-<code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;http://pubnub.github.io/eon/lib/eon.js&quot;&gt;&lt;/script&gt;
-&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;lib/eon.css&quot; /&gt;</code>
-        </pre>
+        <h4>Include scripts and styles.</h4>
+        <pre><code class="html">&lt;script type=&quot;text/javascript&quot; src=&quot;http://pubnub.github.io/eon/lib/eon.js&quot;&gt;&lt;/script&gt;
+&lt;link type=&quot;text/css&quot; rel=&quot;stylesheet&quot; href=&quot;lib/eon.css&quot; /&gt;</code></pre>
     </div>
 
     <div class="col-md-4">
-        <pre>
-<code class="javascript">eon.map({
+        <h4>Define map.</h4>
+        <pre><code class="javascript">eon.map({
   channel: 'eon-map',
   id: 'html-id',
   mb_token: '...',
   mb_id: 'ianjennings.l896mh2e'
-});</code>
-        </pre>
+});</code></pre>
     </div>
 
     <div class="col-md-4">
+      <h4>Publish data.</h4>
       <pre><code class="javascript">PUBNUB.publish({
   channel:  'eon-map',
   message:  <span id="body-map-data"></span>});</code></pre>
     </div>
 
   </div>
-
-  <div class="row">
-
-    <div class="col-md-4">
-
-      <div class="well">
-        <img src="http://placehold.it/350x150" width="100%"/>
-        <h4>C3 Charts</h4>
-        <p>Beautifully animated line, bar, and donut charts.</p>
-      </div>
-
-    </div>
-
-    <div class="col-md-4">
-
-      <div class="well">
-        <img src="http://placehold.it/350x150" width="100%"/>
-        <h4>ShutterStock Rickshaw</h4>
-        <p>Serious time series charts with advanced customization.</p>
-      </div>
-
-    </div>
-
-    <div class="col-md-4">
-
-      <div class="well">
-        <img src="http://placehold.it/350x150" width="100%"/>
-        <h4>Maps</h4>
-        <p>Live updating and navigation for Google Maps.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <hr />
+  <!--
 
   <div class="row">
 
@@ -221,12 +286,12 @@
     </div>
 
   </div>
+-->
 
 </div>
 
 <script>hljs.initHighlightingOnLoad();</script>
 <script src="static/dash.js"></script>
 <script src="static/body.js"></script>
-
   </body>
 </html>
