@@ -1,0 +1,24 @@
+{
+  "name": "RRSSB",
+  "version": "1.6.0",
+  "authors": [
+    "(Joshua Tuscan <hello@joshuatuscan.com>)",
+    "(Daniel Box <daniel@kurtnoble.com>)"
+  ],
+  "description": "Ridiculously Responsive Social Sharing Buttons",
+  "main": [
+    "js/rrssb.js",
+    "css/rrssb.css"
+    ],
+  "keywords": [
+    "responsive",
+    "social",
+    "buttons"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kni-labs/rrssb"
+  },
+  "license": "Creative Commons Attribution-ShareAlike 4.0 International",
+  "homepage": "http://kurtnoble.com/labs/rrssb/"
+}

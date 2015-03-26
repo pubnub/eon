@@ -1,0 +1,6 @@
+/* ======= Animations ======= */
+$(document).ready(function() {
+    
+    
+        
+});

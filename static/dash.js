@@ -155,9 +155,9 @@ var map = eon.map({
     }
     if(data[12]) {
       if(!popup.length) {
-        popup = 'Flight to ' + data[11];
+        popup = 'Flight to ' + data[12];
       } else {
-        popup += ' to ' + data[11];
+        popup += ' to ' + data[12];
       }
     }
     if(!popup.length) {
