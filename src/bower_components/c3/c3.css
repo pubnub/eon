@@ -160,6 +160,7 @@
   border-spacing:0;
   background-color:#fff;
   empty-cells:show;
+  width:auto;
   -webkit-box-shadow: 7px 7px 12px -9px rgb(119,119,119);
      -moz-box-shadow: 7px 7px 12px -9px rgb(119,119,119);
           box-shadow: 7px 7px 12px -9px rgb(119,119,119);
@@ -180,6 +181,7 @@
   padding: 3px 6px;
   background-color:#fff;
   border-left:1px dotted #999;
+  color: #000;
 }
 .c3-tooltip td > span {
   display: inline-block;

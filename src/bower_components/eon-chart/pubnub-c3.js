@@ -176,9 +176,7 @@ eon.c = {
             }
 
             renderNext();
-
           };
-
           self.chart.flow(options.flow);
 
         } else {

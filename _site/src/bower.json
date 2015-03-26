@@ -35,12 +35,13 @@
     "tests"
   ],
   "dependencies": {
-    "pubnub": "~3.7.8",
-    "eon-chart": "0.1.17",
-    "eon-map": "0.2.2"
+    "pubnub": "3.7.8",
+    "eon-chart": "~0.2.1",
+    "eon-map": "0.2.2",
+    "c3": "0.4.9"
   },
   "resolutions": {
     "d3": "~3.5.5",
-    "c3": "~0.4.9"
+    "c3": "0.4.9"
   }
 }

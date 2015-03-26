@@ -1,0 +1,50 @@
+<html>
+  <head>
+
+    <script type="text/javascript" src="../../lib/eon.js"></script>
+    <link type="text/css" rel="stylesheet" href="../../lib/eon.css" />
+
+  </head>
+  <body>
+    <div id="chart"></div>
+    <script>
+      eon.chart({
+        channel: "c3-gauge",
+        generate: {
+          bindto: '#chart',
+          data: {
+            type: 'gauge',
+          },
+          gauge: {
+            min: 0,
+            max: 100
+          },
+          color: {
+            pattern: ['#FF0000', '#F6C600', '#60B044'],
+            threshold: {
+              values: [30, 60, 90]
+            }
+          }
+        }
+      });
+    </script>
+    <script>
+      var pubnub2 = PUBNUB.init({
+        publish_key: 'demo',
+        subscribe_key: 'demo'
+      });
+
+      setInterval(function(){
+
+        pubnub2.publish({
+          channel: 'c3-gauge',
+          message: {
+            columns: [['data', Math.random() * 99]]
+          }
+        })
+
+      }, 1000);
+
+    </script>
+  </body>
+</html>

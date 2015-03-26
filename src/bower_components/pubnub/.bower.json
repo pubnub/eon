@@ -21,6 +21,6 @@
     "commit": "58028b68bb63cebd0a1b1a534e7c3f05cbe2d517"
   },
   "_source": "git://github.com/pubnub/javascript.git",
-  "_target": "~3.7.8",
+  "_target": "3.7.8",
   "_originalSource": "pubnub"
 }

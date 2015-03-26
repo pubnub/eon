@@ -35,19 +35,14 @@ h1,h2,h3,h4,h5,h6,p {
   color:  #fff;
 }
 
-#title .logo {
+.logo {
   font-family: 'Ropa Sans', sans-serif;
-  font-size: 60px;
-}
-
-#title .tagline {
-  font-size: 13px;
-  text-transform: uppercase;
 }
 
 #dashboard {
   position: relative;
   height: 600px;
+  top: -80px;
 }
 
 #map {
@@ -67,7 +62,7 @@ h1,h2,h3,h4,h5,h6,p {
 .chart.bar {
   right: 20px;
   width: 200px;
-  top: 20px;
+  bottom: 300px;
 }
 .chart.spline {
   right: 20px;

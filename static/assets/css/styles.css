@@ -1,4 +1,4 @@
-/*   
+/*
  * Template Name: Velocity - Responsive Website Template for Products
  * Version: 1.1
  * Author: Xiaoying Riley at 3rd Wave Media
@@ -192,7 +192,6 @@ input[type="button"] {
   color: #fff;
 }
 .header h1.logo {
-  font-family: "Roboto Slab", arial, sans-serif;
   margin-top: 0;
   margin-bottom: 0;
   font-weight: bold;
@@ -281,7 +280,7 @@ input[type="button"] {
 }
 .header .main-nav .nav .nav-item a {
   color: #fff;
-  color: rgba(255, 255, 255, 0.8);
+  /* color: rgba(255, 255, 255, 0.8); */
 }
 .header .main-nav .nav .nav-item a:hover {
   color: #ec6952;
@@ -322,9 +321,6 @@ input[type="button"] {
 }
 .header .main-nav .nav.active > a.dropdown-toggle:before {
   display: none;
-}
-.header .main-nav .nav.open a {
-  background: none;
 }
 .header .main-nav .nav .dropdown-menu {
   -webkit-border-radius: 4px;
@@ -369,7 +365,8 @@ input[type="button"] {
 .nav .open > a,
 .nav .open > a:hover,
 .nav .open > a:focus {
-  background: none;
+  background-color: rgba(0,0,0,0);
+  background: transparent;
 }
 /* ======= Headline Background & Slideshow ======= */
 .bg-slider-wrapper {
@@ -456,11 +453,13 @@ input[type="button"] {
 /* ======= Promo ======= */
 .promo {
   padding-top: 120px;
-  position: relative;
-  color: #fff;
+  position: absolute;
+  top: #fff;
   margin-bottom: 80px;
   height: 620px;
   z-index: 10;
+  top: 0px;
+  width: 100%;
 }
 .promo .title {
   font-size: 46px;
@@ -468,6 +467,7 @@ input[type="button"] {
   margin-top: 0;
   font-weight: 700;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+  text-transform: uppercase;
 }
 .promo.section .intro {
   max-width: 600px;

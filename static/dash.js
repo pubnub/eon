@@ -66,6 +66,10 @@ eon.chart({
     },
     tooltip: {
         show: false
+    },
+    size: {
+      height: 160,
+      width: 160
     }
   }
 });

@@ -4,7 +4,7 @@
     "c3.css",
     "c3.js"
   ],
-  "version": "0.4.8",
+  "version": "0.4.9",
   "homepage": "https://github.com/masayuki0812/c3",
   "authors": [
     "Masayuki Tanaka <masayuki0812@mac.com>"
@@ -19,19 +19,23 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "htdocs",
+    "spec",
+    "src",
+    "package.json",
+    "component.json",
+    "Gruntfile.*"
   ],
   "dependencies": {
-    "d3": "~3.4.4"
+    "d3": "<=3.5.0"
   },
-  "_release": "0.4.8",
+  "_release": "0.4.9",
   "_resolution": {
     "type": "version",
-    "tag": "0.4.8",
-    "commit": "5c918985e5fee9d2a9099ab0d3395e77a31e8f5c"
+    "tag": "0.4.9",
+    "commit": "76d2df973f99d8b76d20df9400cd32603f14f473"
   },
   "_source": "git://github.com/masayuki0812/c3.git",
-  "_target": "0.4.8",
+  "_target": "0.4.9",
   "_originalSource": "c3"
 }

@@ -35,9 +35,6 @@
       <link href='http://fonts.googleapis.com/css?family=Ropa+Sans|Open+Sans:400,700' rel='stylesheet' type='text/css'>
       <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/tomorrow.min.css"></link>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-      <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet">
-      <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
 
     </head>
@@ -47,7 +44,7 @@
         <header id="header" class="header">
             <div class="container">
                 <h1 class="logo">
-                    <a href="index.html"><span class="text">Velocity</span></a>
+                    <a href="index.html"><span class="text logo">EON</span></a>
                 </h1><!--//logo-->
                 <nav class="main-nav navbar-right" role="navigation">
                     <div class="navbar-header">
@@ -61,44 +58,54 @@
                     <div id="navbar-collapse" class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
                             <li class="active nav-item"><a href="index.html">Home</a></li>
-                            <li class="nav-item"><a href="features.html">Features</a></li>
-                            <li class="nav-item"><a href="pricing.html">Pricing</a></li>
                             <li class="nav-item dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Pages <i class="fa fa-angle-down"></i></a>
+                                <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Charts <i class="fa fa-angle-down"></i></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="download.html">Download Apps</a></li>
-                                    <li><a href="blog.html">Blog</a></li>
-                                    <li><a href="blog-single.html">Blog Single</a></li>
-                                    <li><a href="blog-category.html">Blog Category</a></li>
-                                    <li><a href="blog-archive.html">Blog Archive</a></li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    <li><a href="./examples/chart/spline.html">Spline</a></li>
+                                    <li><a href="./examples/chart/bar.html">Bar</a></li>
+                                    <li><a href="./examples/chart/donut.html">Donut</a></li>
+                                    <li><a href="./examples/chart/gauge.html">Gauge</a></li>
+                                    <li><a href="./examples/chart/transform.html">Transform</a></li>
                                 </ul>
                             </li><!--//dropdown-->
-                            <li class="nav-item"><a href="login.html">Log in</a></li>
-                            <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="signup.html">Sign Up Free</a></li>
+                            <li class="nav-item dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="0" data-close-others="false" href="#">Maps <i class="fa fa-angle-down"></i></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="./examples/map/index.html">One Marker</a></li>
+                                    <li><a href="./examples/map/extra.html">Multiple Markers</a></li>
+                                    <li><a href="./examples/map/flight.html">Planes</a></li>
+                                    <li><a href="./examples/map/bus.html">Buses</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item"><a href="http://www.pubnub.com/docs/javascript/javascript-sdk.html">PubNub</a></li>
+                            <li class="nav-item nav-item-cta last"><a class="btn btn-cta btn-cta-secondary" href="https://github.com/pubnub/eon">Github</a></li>
                         </ul><!--//nav-->
                     </div><!--//navabr-collapse-->
                 </nav><!--//main-nav-->
             </div><!--//container-->
         </header><!--//header-->
 
-        <div class="bg-slider-wrapper">
-            <div class="flexslider bg-slider">
-                <ul class="slides">
-                    <li class="slide slide-1"></li>
-                    <li class="slide slide-2"></li>
-                    <li class="slide slide-3"></li>
-                </ul>
-            </div>
-        </div><!--//bg-slider-wrapper-->
+    <div id="dashboard">
+  <div id="title">
+  </div>
+  <div class="chart bar">
+    <div id="bar-chart"></div>
+  </div>
+  <div class="chart spline">
+    <div id="spline-chart"></div>
+  </div>
+  <div class="chart pie">
+    <div id="pie-chart"></div>
+  </div>
+  <div id="map"></div>
+</div>
 
-    <section class="promo section section-on-bg">
-    <div class="container text-center">
-        <h2 class="title">Let's get your product online fast<br />and get attention right away!</h2>
-        <p class="intro">Velocity is a mobile-friendly HTML5 template designed to help you <br /> promote your product effectively to your target users</p>
-        <p><a class="btn btn-cta btn-cta-primary" href="signup.html">Try Velocity Free</a></p>
-        <button type="button" class="play-trigger btn-link " data-toggle="modal" data-target="#modal-video"><i class="fa fa-youtube-play"></i> Watch the video</button>
+<section class="promo section section-on-bg">
+    <div class="text-center">
+        <h2 class="title">Realtime Dashboards</h2>
+        <p class="intro">Maps, Charts, and Graphs powered by realtime data.</p>
+        <p><a class="btn btn-cta btn-cta-primary" href="signup.html">Get EON</a></p>
+        <!-- <button type="button" class="play-trigger btn-link " data-toggle="modal" data-target="#modal-video"><i class="fa fa-youtube-play"></i> Watch the video</button> -->
     </div><!--//container-->
 </section><!--//promo-->
 
@@ -419,29 +426,6 @@
     </div><!--//modal-dialog-->
 </div><!--//modal-->
 
-<!-- *****CONFIGURE STYLE****** -->
-<div class="config-wrapper">
-    <div class="config-wrapper-inner">
-        <a id="config-trigger" class="config-trigger" href="#"><i class="fa fa-cog"></i></a>
-        <div id="config-panel" class="config-panel">
-            <h5>Choose Colour</h5>
-            <ul id="color-options" class="list-unstyled list-inline">
-                <li class="theme-1 active" ><a data-style="assets/css/styles.css" href="#"></a></li>
-                <li class="theme-2"><a data-style="assets/css/styles-2.css" href="#"></a></li>
-                <li class="theme-3"><a data-style="assets/css/styles-3.css" href="#"></a></li>
-                <li class="theme-4"><a data-style="assets/css/styles-4.css" href="#"></a></li>
-                <li class="theme-5"><a data-style="assets/css/styles-5.css" href="#"></a></li>
-                <li class="theme-6"><a data-style="assets/css/styles-6.css" href="#"></a></li>
-                <li class="theme-7"><a data-style="assets/css/styles-7.css" href="#"></a></li>
-                <li class="theme-8"><a data-style="assets/css/styles-8.css" href="#"></a></li>
-                <li class="theme-9"><a data-style="assets/css/styles-9.css" href="#"></a></li>
-                <li class="theme-10"><a data-style="assets/css/styles-10.css" href="#"></a></li>
-            </ul><!--//color-options-->
-            <a id="config-close" class="close" href="#"><i class="fa fa-times-circle"></i></a>
-        </div><!--//configure-panel-->
-    </div><!--//config-wrapper-inner-->
-</div><!--//config-wrapper-->
-
 <!--
   edit apache config to embed this package within pubnub.com
   search for github
@@ -495,23 +479,6 @@ body {
   background-color: #fff;
 }
 </style>
-
-<div id="dashboard">
-  <div id="title">
-    <div class="logo">EON</div>
-    <div class="tagline">Realtime Dashboard Framework</div>
-  </div>
-  <div class="chart bar">
-    <div id="bar-chart"></div>
-  </div>
-  <div class="chart spline">
-    <div id="spline-chart"></div>
-  </div>
-  <div class="chart pie">
-    <div id="pie-chart"></div>
-  </div>
-  <div id="map"></div>
-</div>
 
 <div class="container">
 

@@ -20,8 +20,11 @@
     <div id="chart"></div>
     <script>
       eon.chart({
+        history: true,
         channel: "c3-spline",
-        flow: true,
+        flow: {
+          duration: 100
+        },
         generate: {
           bindto: '#chart',
           data: {
