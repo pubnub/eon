@@ -7192,15 +7192,9 @@ eon.c = {
           }
 
           options.flow.columns = m.columns;
-          options.flow.done = function(){
 
-            if(message_buffer.length > 5) {
-              console.error('EON: You\'re publishing messages faster than the chart can render with flow. Consider turning off flow or reducing animation duration.');
-            }
-
-            renderNext();
-          };
           self.chart.flow(options.flow);
+          renderNext();
 
         } else {
 
@@ -7212,9 +7206,11 @@ eon.c = {
         }
 
       } else {
+
         setTimeout(function(){
           renderNext();
         }, options.rate);
+
       }
 
     };

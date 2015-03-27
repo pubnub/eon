@@ -44,6 +44,7 @@ eon.chart({
     duration: 100
   },
   limit: 5,
+  history: false,
   generate: {
     bindto: '#spline-chart',
     data: {
@@ -136,8 +137,6 @@ var map = eon.map({
   rotate: true,
   history: true,
   marker: function (latlng, data) {
-
-    console.log(data)
 
     var marker = new L.RotatedMarker(latlng, {
       icon: L.icon({

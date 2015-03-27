@@ -1,6 +1,6 @@
 {
   "name": "eon-chart",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "homepage": "https://github.com/pubnub/eon-chart",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
@@ -32,13 +32,13 @@
     "c3": "~0.4.9",
     "pubnub": "~3.7.8"
   },
-  "_release": "0.2.1",
+  "_release": "0.2.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.2.1",
-    "commit": "8ce0f2aee73380590bbf390f1057b492ddbaacab"
+    "tag": "0.2.2",
+    "commit": "6943c8d814e2b11100f788419b727747ef47a299"
   },
   "_source": "git://github.com/pubnub/eon-chart.git",
-  "_target": "~0.2.1",
+  "_target": "~0.2.2",
   "_originalSource": "eon-chart"
 }

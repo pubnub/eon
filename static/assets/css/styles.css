@@ -507,6 +507,7 @@ input[type="button"] {
   background: #fff;
   z-index: 20;
   position: relative;
+  margin-top: -80px;
 }
 .section .intro {
   max-width: 700px;
@@ -780,7 +781,7 @@ input[type="button"] {
 }
 /* ======= cta-section ======= */
 .cta-section {
-  background: #253340 url('../images/background/bg-footer-1.jpg') no-repeat left top;
+  background: #253340 url('../../images/earth.jpg') no-repeat left top;
   background-size: cover;
   min-height: 420px;
   color: #fff;
@@ -2464,7 +2465,6 @@ input[type="button"] {
 .footer {
   background: #253340;
   color: #fff;
-  padding-top: 40px;
   font-size: 14px;
   position: relative;
   z-index: 20;
