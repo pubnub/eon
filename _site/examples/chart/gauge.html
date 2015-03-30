@@ -8,8 +8,9 @@
   <body>
     <div id="chart"></div>
     <script>
+      var channel = "c3-gauge" + Math.random();
       eon.chart({
-        channel: "c3-gauge",
+        channel: channel,
         generate: {
           bindto: '#chart',
           data: {
@@ -37,7 +38,7 @@
       setInterval(function(){
 
         pubnub2.publish({
-          channel: 'c3-gauge',
+          channel: channel,
           message: {
             columns: [['data', Math.random() * 99]]
           }
