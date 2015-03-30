@@ -1,4 +1,4 @@
-var channel_chart = 'eon-chart-';// + Math.ceil(Math.random() * 10000);
+var channel_chart = 'eon-chart-' + Math.random();
 
 eon.chart({
   channel:  channel_chart,
@@ -189,55 +189,7 @@ function getNonZeroRandomNumber(){
   return random;
 }
 
-var them = {
-  icon: {
-    'marker-color': '#c7e4de'
-  }
-};
-
 var origins = {
-  map: [
-    {
-      latlng: [30.293479, -97.742405],
-      options: {
-        icon: {
-          'marker-color': '#b35258'
-        }
-      }
-    },
-    {
-      latlng: [30.370375, -97.756138],
-      options: {
-        icon: {
-          'marker-color': '#C7E4DE'
-        }
-      }
-    },
-    {
-      latlng: [30.323118, -97.739144],
-      options: {
-        icon: {
-          'marker-color': '#BBD6D1'
-        }
-      }
-    },
-    {
-      latlng: [30.302816, -97.699490],
-      options: {
-        icon: {
-          'marker-color': '#B0C9C4'
-        }
-      }
-    },
-    {
-      latlng: [30.250337, -97.754593],
-      options: {
-        icon: {
-          'marker-color': '#A5BDB8'
-        }
-      }
-    }
-  ],
   chart: [
     ['Me', 50],
     ['Nick', 50],
