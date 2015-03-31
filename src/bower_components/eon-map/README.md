@@ -6,7 +6,11 @@ Real-time location tracking.
 
 ## Quickstart
 
-```js
+```html
+<script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon-map.js"></script>
+<link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/lib/eon.css" />
+<div id='map'></div>
+<script type="text/javascript">
 eon.map({
   id: 'map',
   mb_token: 'mapbox api token',
@@ -16,6 +20,7 @@ eon.map({
   history: false,
   connect: connect,
 });
+</script>
 ```
 
 ### Init
@@ -27,21 +32,13 @@ Parameter | Value | Default
 | mb_id | Mapbox Map ID. | ```undefined```
 | subscribe_key | Your PubNub subscribe_key | ```demo```
 | history | Use PubNub history call to retrieve last message. This will display points at their last known location. Requires [PubNub storage](http://www.pubnub.com/how-it-works/storage-and-playback/) to be enabled. | ```false```
-| connect | This function fires once data has been retrieved from PubNub.  | ```function(){}```
+| connect | A function to call when PubNub makes a connection. See [PubNub subscribe](http://www.pubnub.com/docs/javascript/api/reference.html#subscribe) | function(){} |
+| marker | A custom Mapbox marker object. Use this to change the marker icon, tooltip, etc. | L.maker |
+| rotate | Add bearing to markers in ```options.angle```. This won't have any effect unless you're using [a rotated marker type](https://www.mapbox.com/mapbox.js/example/v1.0.0/rotating-controlling-marker/). | ```false``` |
 
 ## Simple Example
 
-Include ```mapbox.css```, ```mapbox.js```, ```pubnub.js```, and ```pubnub_mapbox.js```.
-
-```js
-<link href="./lib/mapbox.css" rel="stylesheet" />
-<script src="./lib/mapbox.js"></script>
-
-<script src="./bower_components/pubnub/web/pubnub.min.js"></script>
-<script src="./pubnub-mapbox.js"></script>
-```
-
-Then, call ```eon.map({})```. Check out the table of options above for more information.
+Call ```eon.map({})```. Check out the table of options above for more information.
 
 ```js
 var channel = 'pubnub-mapbox';
@@ -138,23 +135,56 @@ pnmap.follow({
 
 ## Market Customization
 
-You can supply Mapbox icon properties as ```options``` in the same objects as ```latlong``` values on publish. You can find a detailed list of properties and values [here](https://www.mapbox.com/mapbox.js/example/v1.0.0/custom-marker/). 
+You can supply a custom Mapbox marker object with custom tooltips by extening the ```L.marker``` object provided by mapbox. Learn more about custom markers [here](https://www.mapbox.com/mapbox.js/example/v1.0.0/custom-marker/). 
 
-```js
-var torchys = [
-    {
-        latlng: [30.370375, -97.756138],
-        options: {   
-            icon: {
-                'marker-color': '#ce1126'
-            }
-        }
-    },
+```html
+<div id='map'></div>
+<script>
+  L.RotatedMarker = L.Marker.extend({
+    options: { angle: 0 },
+    _setPos: function(pos) {
+      L.Marker.prototype._setPos.call(this, pos);
+      if (L.DomUtil.TRANSFORM) {
+        // use the CSS transform rule if available
+        this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
+      } else if (L.Browser.ie) {
+        // fallback for IE6, IE7, IE8
+        var rad = this.options.angle * L.LatLng.DEG_TO_RAD,
+        costheta = Math.cos(rad),
+        sintheta = Math.sin(rad);
+        this._icon.style.filter += ' progid:DXImageTransform.Microsoft.Matrix(sizingMethod=\'auto expand\', M11=' +
+          costheta + ', M12=' + (-sintheta) + ', M21=' + sintheta + ', M22=' + costheta + ')';
+      }
+    }
+  });
+
+  var map = eon.map({
+    id: 'map',
+    mb_id: 'ianjennings.lec77m70',
+    mb_token: 'pk.eyJ1IjoiaWFuamVubmluZ3MiLCJhIjoiZExwb0p5WSJ9.XLi48h-NOyJOCJuu1-h-Jg',
+    channel: 'rutgers-bus-data',
+    rotate: true,
+    history: true,
+    marker: function (latlng, data) {
+
+      var marker = new L.RotatedMarker(latlng, {
+        icon: L.icon({
+          iconUrl: 'http://i.imgur.com/2fmFQfN.png',
+          iconSize: [9, 32]
+        })
+      });
+
+      marker.bindPopup('Route ' + data.routeTag.toUpperCase());
+
+      return marker;
+
+    }
+  });
+</script>
 ```
-
 ## Kitchen Sink
 
-Check out the ```extra.html``` demo for an example of tracking multiple markers on a graph.
+Check out the ```bus.html``` and ```flight.html``` for full featured examples.
 
 ## Customizing with Mapbox
 
