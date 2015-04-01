@@ -30,14 +30,6 @@
           data: {
             x: 'x',
             labels: true
-          },
-          axis : {
-            x : {
-              type : 'timeseries',
-              tick: {
-                format: '%H:%M:%S'
-              }
-            }
           }
         }
       });
@@ -47,20 +39,24 @@
         publish_key: 'demo',
         subscribe_key: 'demo'
       });
+
+      var i = 0;
       setInterval(function(){
 
         pubnub2.publish({
           channel: 'c3-spline',
           message: {
             columns: [
-              ['x', new Date().getTime()],
-              ['Austin', Math.floor(Math.random() * 99)],
-              ['New York', Math.floor(Math.random() * 99)],
-              ['San Francisco', Math.floor(Math.random() * 99)],
-              ['Portland', Math.floor(Math.random() * 99)]
+              ['x', i],
+              ['Austin', 1],
+              ['New York', 1],
+              ['San Francisco', 1],
+              ['Portland', 1]
             ]
           }
         });
+
+        i++;
 
       }, 1000);
     </script>

@@ -51,7 +51,6 @@ eon.c = {
     options.flow = options.flow || false;
     options.flow.length = options.flow.length || 0;
     options.limit = options.limit || 10;
-    options.rate = options.rate || 500; // refresh rate
     options.history = options.history || false;
 
     options.message = options.message || function(){};
@@ -132,11 +131,13 @@ eon.c = {
 
     };
 
+    var buffer = []
     var needsTrim = function() {
 
-      var buffer = self.chart.data();
+      buffer = self.chart.data();
 
       for(i in buffer) {
+      console.log(buffer[i].values.length)
         if(buffer[i].values.length > options.limit) {
           return buffer[i].values.length - options.limit;
           break;
@@ -144,51 +145,6 @@ eon.c = {
       }
 
       return false;
-
-    };
-
-    var message_buffer = [];
-
-    var renderNext = function() {
-
-      if(message_buffer.length) {
-
-        var m = message_buffer[0];
-        message_buffer.shift();
-
-        if(options.flow) {
-
-          if(options.flow === true) {
-            options.flow = {};
-          }
-
-          var trimLength = needsTrim();
-
-          if(trimLength)  {
-            options.flow.length = trimLength;
-          }
-
-          options.flow.columns = m.columns;
-
-          self.chart.flow(options.flow);
-          renderNext();
-
-        } else {
-
-          self.chart.load(m);
-          setTimeout(function(){
-            renderNext();
-          }, options.rate);
-
-        }
-
-      } else {
-
-        setTimeout(function(){
-          renderNext();
-        }, options.rate);
-
-      }
 
     };
 
@@ -208,11 +164,28 @@ eon.c = {
       eon.c.subscribe(self.pubnub, options.channel, options.connect, function(message, env, channel) {
 
         options.message(message, env, channel);
-        message_buffer.push(message);
+
+        if(options.flow) {
+
+          if(options.flow === true) {
+            options.flow = {};
+          }
+
+          var trimLength = needsTrim();
+
+          if(trimLength)  {
+            options.flow.length = trimLength;
+          }
+
+          options.flow.columns = message.columns;
+
+          self.chart.flow(options.flow);
+
+        } else {
+          self.chart.load(message);
+        }
 
       });
-
-      renderNext();
 
       return self;
 

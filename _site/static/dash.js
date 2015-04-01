@@ -1,5 +1,3 @@
-var channel_chart = 'eon-chart-' + Math.random();
-
 eon.chart({
   channel:  channel_chart,
   generate: {
@@ -129,6 +127,7 @@ L.RotatedMarker = L.Marker.extend({
   }
 });
 
+var marker = false;
 var map = eon.map({
   id: 'map',
   mb_id: 'ianjennings.06d6eddb',
@@ -138,7 +137,7 @@ var map = eon.map({
   history: true,
   marker: function (latlng, data) {
 
-    var marker = new L.RotatedMarker(latlng, {
+    marker = new L.RotatedMarker(latlng, {
       icon: L.icon({
         iconUrl: '  http://i.imgur.com/obDmYn4.png',
         iconSize: [24, 24]
@@ -189,46 +188,27 @@ function getNonZeroRandomNumber(){
   return random;
 }
 
-var origins = {
-  chart: [
-    ['Me', 50],
-    ['Nick', 50],
-    ['Ritika', 50],
-    ['Emily', 50],
-    ['Sami', 50]
-  ]
-};
-
-var copy = function (data) {
-  return JSON.parse(JSON.stringify(data));
-};
-
-var data = {
-  chart: function() {
-
-    for (var i = 0; i < origins.chart.length; i++) {
-
-      new_value = Math.round(origins.chart[i][1] + (getNonZeroRandomNumber() * .1));
-      origins.chart[i][1] = new_value;
-
-    }
-
-    return origins.chart;
-
-  }
-};
-
 var pubnub = PUBNUB.init({
   publish_key: 'demo',
   subscribe_key: 'demo'
 });
+
+var rand = function(){
+  return Math.floor(Math.random() * 99);
+}
 
 setInterval(function(){
 
   pubnub.publish({
     channel: channel_chart,
     message: {
-      columns: data.chart()
+      columns: [
+        ['Me', rand()],
+        ['Nick', rand()],
+        ['Ritika', rand()],
+        ['Emily', rand()],
+        ['Sami', rand()]
+      ]
     }
   });
 
