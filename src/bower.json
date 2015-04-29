@@ -36,8 +36,8 @@
   ],
   "dependencies": {
     "pubnub": "3.7.8",
-    "eon-chart": "~0.2.4",
-    "eon-map": "0.2.2",
+    "eon-chart": "~0.2.6",
+    "eon-map": "~0.2.2",
     "c3": "0.4.9"
   },
   "resolutions": {
