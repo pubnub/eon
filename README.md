@@ -19,7 +19,7 @@ This is the repository for the compiled EON framework, including [eon-chart](htt
 
 ![](http://i.imgur.com/8am5hZ9.gif)
 
-[EON Maps](https://github.com/pubnub/eon-chart)
+[EON Maps](https://github.com/pubnub/eon-map)
 
 # Development
 
