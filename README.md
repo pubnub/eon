@@ -15,7 +15,7 @@ This is the repository for the compiled EON framework, including [eon-chart](htt
 
 This repository contains ```gh-pages``` and ```gulp``` tasks to compile the full EON framework. Each module has it's own repository and documentation found below.
 
-## Charts
+### Charts
 
 <a href="https://github.com/pubnub/eon-chart">
 
@@ -24,7 +24,7 @@ EON Charts Documentation
 <img src="http://i.imgur.com/IPGPKYO.gif"/>
 </a>
 
-## Maps
+### Maps
 
 <a href="https://github.com/pubnub/eon-map">
 
