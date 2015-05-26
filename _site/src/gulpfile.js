@@ -27,6 +27,10 @@ var styles = [
   'bower_components/eon-map/lib/mapbox.css'
 ];
 
+var images = [
+  'bower_components/eon-map/lib/images/*'
+];
+
 var map_files = pubnub
   .concat(map)
   .concat(bind);
@@ -81,4 +85,11 @@ gulp.task('css', function(){
 
 });
 
-gulp.task('default', ['map', 'chart', 'javascript', 'css']);
+gulp.task('images', function(){
+
+  return gulp.src(images)
+    .pipe(gulp.dest('../lib/images'));
+
+});
+
+gulp.task('default', ['map', 'chart', 'javascript', 'css', 'images']);

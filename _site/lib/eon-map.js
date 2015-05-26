@@ -182,14 +182,20 @@ eon.m = {
       }
     };
 
+    self.pubnub = options.pubnub || PUBNUB || false;
+
+    if(!self.pubnub) {
+      error = "PubNub not found. See http://www.pubnub.com/docs/javascript/javascript-sdk.html#_where_do_i_get_the_code";
+    }
+
     options.id = options.id || false;
     options.channel = options.channel || false;
-    options.subscribe_key = options.subscribe_key || eon.subscribe_key || 'demo';
     options.history = options.history || false;
     options.message = options.message || function(){};
     options.connect = options.connect || function(){};
     options.rotate = options.rotate || false;
     options.marker = options.marker || L.marker;
+    options.options = options.options || {};
 
     self.markers = {};
 
@@ -197,15 +203,11 @@ eon.m = {
       return console.error('You need to set an ID for your Mapbox element.');
     }
 
-    self.map = L.mapbox.map(options.id, options.mb_id);
+    self.map = L.mapbox.map(options.id, options.mb_id, options.options);
 
     self.refreshRate = options.refreshRate || 10;
 
     self.lastUpdate = new Date().getTime();
-
-    self.pubnub = PUBNUB.init({
-      subscribe_key: options.subscribe_key
-    });
 
     self.update = function (seed, animate) {
 
@@ -236,8 +238,20 @@ eon.m = {
 
     };
 
+    var isNumber = function(n) {
+      return !isNaN(parseFloat(n)) && isFinite(n);
+    };
+
     self.updateMarker = function (index, point) {
-      self.markers[index].setLatLng(point);
+
+      if(point && point.length > 1) {
+
+        if(isNumber(point[0]) && isNumber(point[1])) {
+          self.markers[index].setLatLng(point);
+        }
+
+      }
+
     };
 
     self.animations = {};
@@ -327,4 +341,3 @@ eon.map = function(o) {
   return new eon.m.create(o);
 };
 var eon = eon || {};
-eon.subscribe_key = eon.subscribe_key || 'demo';

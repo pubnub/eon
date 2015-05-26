@@ -4,22 +4,34 @@ This is the repository for the compiled EON framework, including [eon-chart](htt
 
 [Product Website](http://pubnub.github.io/eon/)
 
-# Quick Include
+# Quick Start
 
 ```html
 <script type="text/javascript" src="http://pubnub.github.io/eon/lib/eon.js"></script>
 <link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/lib/eon.css" />
 ```
 
-# Full Usage
+# Documentation
 
-![](http://i.imgur.com/IPGPKYO.gif)
+This repository contains ```gh-pages``` and ```gulp``` tasks to compile the full EON framework. Each module has it's own repository and documentation found below.
 
-[EON Charts](https://github.com/pubnub/eon-chart)
+### Charts
 
-![](http://i.imgur.com/8am5hZ9.gif)
+<a href="https://github.com/pubnub/eon-chart">
 
-[EON Maps](https://github.com/pubnub/eon-chart)
+EON Charts Documentation
+
+<img src="http://i.imgur.com/IPGPKYO.gif"/>
+</a>
+
+### Maps
+
+<a href="https://github.com/pubnub/eon-map">
+
+EON Maps Documentation
+
+<img src="http://i.imgur.com/8am5hZ9.gif"/>
+</a>
 
 # Development
 
