@@ -38,9 +38,7 @@ eon.chart({
 
 eon.chart({
   channel: channel_chart,
-  flow: {
-    duration: 100
-  },
+  flow: true,
   limit: 5,
   history: false,
   generate: {
