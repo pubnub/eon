@@ -6,7 +6,10 @@
     "Ian Jennings <ian@meetjennings.com>"
   ],
   "description": "EON Realtime Dashboard Library",
-  "main": "eon.js",
+  "main": [
+    "/lib/eon.js",
+    "/lib/eon.css"
+  ],
   "keywords": [
     "realtime",
     "dashboard",

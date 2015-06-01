@@ -48,7 +48,7 @@ gulp.task('map', function(){
 
   return gulp.src(map_files)
     .pipe(concat('eon-map.js'))
-    .pipe(gulp.dest('../lib'));
+    .pipe(gulp.dest('lib'));
 
 });
 
@@ -56,7 +56,7 @@ gulp.task('chart', function(){
 
   return gulp.src(chart_files)
     .pipe(concat('eon-chart.js'))
-    .pipe(gulp.dest('../lib'));
+    .pipe(gulp.dest('lib'));
 
 });
 
@@ -64,16 +64,7 @@ gulp.task('javascript', function(){
 
   return gulp.src(all_files)
     .pipe(concat('eon.js'))
-    .pipe(gulp.dest('../lib'));
-
-  /*
-  return gulp.src(scripts)
-    .pipe(concat('eon.js'))
-    //.pipe(uglify({
-    //  mangle: false
-    //}))
-    .pipe(gulp.dest('build'));
-  */
+    .pipe(gulp.dest('lib'));
 
 });
 
@@ -81,14 +72,14 @@ gulp.task('css', function(){
 
   return gulp.src(styles)
     .pipe(concat('eon.css'))
-    .pipe(gulp.dest('../lib'));
+    .pipe(gulp.dest('lib'));
 
 });
 
 gulp.task('images', function(){
 
   return gulp.src(images)
-    .pipe(gulp.dest('../lib/images'));
+    .pipe(gulp.dest('lib/images'));
 
 });
 
