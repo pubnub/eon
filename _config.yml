@@ -1,2 +1,0 @@
-baseurl: /eon
-exclude: [node_modules, src/node_modules]
