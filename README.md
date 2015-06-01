@@ -2,7 +2,7 @@
 
 This is the repository for the compiled EON framework, including [eon-chart](https://github.com/pubnub/eon-chart) and [eon-map](https://github.com/pubnub/eon-map).
 
-[Product Website](http://pubnub.github.io/eon/)
+[Product Website](http://pubnub.com/developers/eon/)
 
 # Quick Start
 
