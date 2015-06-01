@@ -1,60 +1,62 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+
+    <title>EON Bar Chart - EON Realtime Dashboards</title>
 
     <script type="text/javascript" src="../../lib/eon.js"></script>
     <link type="text/css" rel="stylesheet" href="../../lib/eon.css" />
 
-    <style>
-      .c3-region-1 {
-        fill: #dd3333;
-        fill-opacity: 0.8
-      }
-    </style>
-
   </head>
   <body>
-    <div id="chart"></div>
-    <script>
-      var channel = "c3-bar" + Math.random();
-      eon.chart({
-        channel: channel,
-        generate: {
-          bindto: '#chart',
-          data: {
-            labels: true,
-            type: 'bar'
-          },
-          bar: {
-            width: {
-              ratio: 0.5
-            }
-          },
-          tooltip: {
-              show: false
-          }
+    <style>
+  .c3-region-1 {
+    fill: #dd3333;
+    fill-opacity: 0.8
+  }
+</style>
+<div id="chart"></div>
+<script>
+  var channel = "c3-bar" + Math.random();
+  eon.chart({
+    channel: channel,
+    generate: {
+      bindto: '#chart',
+      data: {
+        labels: true,
+        type: 'bar'
+      },
+      bar: {
+        width: {
+          ratio: 0.5
         }
-      });
-    </script>
-    <script>
-      var pubnub2 = PUBNUB.init({
-        publish_key: 'demo',
-        subscribe_key: 'demo'
-      });
-      setInterval(function(){
+      },
+      tooltip: {
+          show: false
+      }
+    }
+  });
+</script>
+<script>
+  var pubnub2 = PUBNUB.init({
+    publish_key: 'demo',
+    subscribe_key: 'demo'
+  });
+  setInterval(function(){
 
-        pubnub2.publish({
-          channel: channel,
-          message: {
-            columns: [
-              ['Austin', Math.floor(Math.random() * 99)],
-              ['New York', Math.floor(Math.random() * 99)],
-              ['San Francisco', Math.floor(Math.random() * 99)],
-              ['Portland', Math.floor(Math.random() * 99)]
-            ]
-          }
-        });
+    pubnub2.publish({
+      channel: channel,
+      message: {
+        columns: [
+          ['Austin', Math.floor(Math.random() * 99)],
+          ['New York', Math.floor(Math.random() * 99)],
+          ['San Francisco', Math.floor(Math.random() * 99)],
+          ['Portland', Math.floor(Math.random() * 99)]
+        ]
+      }
+    });
 
-      }, 1000);
-    </script>
+  }, 1000);
+</script>
   </body>
 </html>

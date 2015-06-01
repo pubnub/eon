@@ -66,7 +66,6 @@
                                     <li><a href="./examples/chart/bar.html">Bar</a></li>
                                     <li><a href="./examples/chart/donut.html">Donut</a></li>
                                     <li><a href="./examples/chart/gauge.html">Gauge</a></li>
-                                    <li><a href="./examples/chart/transform.html">Transform</a></li>
                                 </ul>
                             </li><!--//dropdown-->
                             <li class="nav-item dropdown">
@@ -86,13 +85,7 @@
             </div><!--//container-->
         </header><!--//header-->
 
-    <!--
-  edit apache config to embed this package within pubnub.com
-  search for github
-  http://www.pubnub.com/developers/bitcoin/
-  https://github.com/pubnub/pubnub-web/blob/master/config/common-apache.conf#L35
--->
-<style type="text/css">
+    <style type="text/css">
 body {
   background-color: #efefef;
 }
@@ -280,7 +273,7 @@ pre.centered {
                     <pre><code class="javascript">eon.chart({
   channel: 'eon-chart',
   limit: 20,
-  history: true,
+  flow: true,
   generate: {
     bindto: '#body-spline'
   }
