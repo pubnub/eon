@@ -4,7 +4,8 @@ var uglify = require('gulp-uglify');
 var cssMin = require('gulp-css');
 
 var pubnub = [
-  'bower_components/pubnub/web/pubnub.min.js'
+  'bower_components/pubnub/web/pubnub.min.js',
+  'bower_components/subsub/subsub.js'
 ];
 
 var map = [
@@ -18,10 +19,6 @@ var chart = [
   'bower_components/eon-chart/pubnub-c3.js'
 ];
 
-var bind = [
-  'bind.js'
-];
-
 var styles = [
   'bower_components/c3/c3.min.css',
   'bower_components/eon-map/lib/mapbox.css'
@@ -32,17 +29,14 @@ var images = [
 ];
 
 var map_files = pubnub
-  .concat(map)
-  .concat(bind);
+  .concat(map);
 
 var chart_files = pubnub
-  .concat(chart)
-  .concat(bind);
+  .concat(chart);
 
 var all_files = pubnub
   .concat(chart)
-  .concat(map)
-  .concat(bind)
+  .concat(map);
 
 gulp.task('map', function(){
 
