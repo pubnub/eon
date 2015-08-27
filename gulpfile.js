@@ -1,3 +1,7 @@
+var bower = require('./bower.json');
+
+console.log(bower)
+
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
@@ -15,7 +19,7 @@ var map = [
 
 var chart = [
   'bower_components/d3/d3.min.js',
-  'bower_components/c3/c3.js',,
+  'bower_components/c3/c3.js',
   'bower_components/visibility.js/visibility.js',
   'bower_components/eon-chart/pubnub-c3.js'
 ];
@@ -41,33 +45,37 @@ var all_files = pubnub
 
 gulp.task('map', function(){
 
-  return gulp.src(map_files)
+   gulp.src(map_files)
     .pipe(concat('eon-map.js'))
-    .pipe(gulp.dest('lib'));
+    .pipe(gulp.dest('lib'))
+    .pipe(gulp.dest('v/eon-map/' + bower.dependencies['eon-map']));
 
 });
 
 gulp.task('chart', function(){
 
-  return gulp.src(chart_files)
+   gulp.src(chart_files)
     .pipe(concat('eon-chart.js'))
-    .pipe(gulp.dest('lib'));
+    .pipe(gulp.dest('lib'))
+    .pipe(gulp.dest('v/eon-chart/' + bower.dependencies['eon-chart']));
 
 });
 
 gulp.task('javascript', function(){
 
-  return gulp.src(all_files)
+   gulp.src(all_files)
     .pipe(concat('eon.js'))
-    .pipe(gulp.dest('lib'));
+    .pipe(gulp.dest('lib'))
+    .pipe(gulp.dest('v/eon/' + bower.version));
 
 });
 
 gulp.task('css', function(){
 
-  return gulp.src(styles)
+   gulp.src(styles)
     .pipe(concat('eon.css'))
-    .pipe(gulp.dest('lib'));
+    .pipe(gulp.dest('lib'))
+    .pipe(gulp.dest('v/eon/' + bower.version));
 
 });
 
