@@ -53,3 +53,7 @@ Compile.
 ```
 gulp
 ```
+
+# Note on Hotlinking
+
+```http://pubnub.github.io/eon/lib/eon.js``` is stuck at version ```0.0.7```, please use versioned hotlinking, for example: ```http://pubnub.github.io/eon/v/eon/0.0.8/eon.js```.
