@@ -7,8 +7,8 @@ This is the repository for the compiled EON framework, including [eon-chart](htt
 # Quick Start
 
 ```html
-<script type="text/javascript" src="http://pubnub.github.io/eon/v/eon/0.0.8/eon.js"></script>
-<link type="text/css" rel="stylesheet" href="http://pubnub.github.io/eon/v/eon/0.0.8/eon.css" />
+<script type="text/javascript" src="//pubnub.github.io/eon/v/eon/0.0.9/eon.js"></script>
+<link type="text/css" rel="stylesheet" href="//pubnub.github.io/eon/v/eon/0.0.9/eon.css" />
 ```
 
 # Documentation
@@ -56,4 +56,4 @@ gulp
 
 # Note on Hotlinking
 
-```http://pubnub.github.io/eon/lib/eon.js``` is stuck at version ```0.0.7```, please use versioned hotlinking, for example: ```http://pubnub.github.io/eon/v/eon/0.0.8/eon.js```.
+```//pubnub.github.io/eon/lib/eon.js``` is stuck at version ```0.0.7```, please use versioned hotlinking, for example: ```//pubnub.github.io/eon/v/eon/0.0.9/eon.js```.
