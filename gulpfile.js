@@ -82,6 +82,8 @@ gulp.task('css', function(){
 gulp.task('images', function(){
 
   return gulp.src(images)
+    .pipe(gulp.dest('v/eon-map/' + bower.dependencies['eon-map'] + '/images'))
+    .pipe(gulp.dest('v/eon/' + bower.version + '/images'))
     .pipe(gulp.dest('lib/images'));
 
 });
