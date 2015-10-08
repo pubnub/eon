@@ -7901,10 +7901,7 @@ eon.m = {
       clog('Markers:', 'Updating');
 
       for(var key in seed) {
-
-        seed[key].latlng[0] = parseFloat(seed[key].latlng[0].toFixed(5));
-        seed[key].latlng[1] = parseFloat(seed[key].latlng[1].toFixed(5));
-
+        
         if(!self.markers.hasOwnProperty(key)) {
 
           var data = seed[key].data || {};
