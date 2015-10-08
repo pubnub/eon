@@ -7817,6 +7817,19 @@ eon.subsub = eon.subsub || subsub;
 eon.m = {
   create: function (options) {
 
+    options.debug = options.debug || false;
+
+    var clog = function(s, o, e) {
+
+      if (options.debug) {
+        if (e) {
+          console.log('EON-MAP:', s, o, e);
+        } else {
+          console.log('EON-MAP:', s, o);
+        }
+      }
+    };
+
     if(typeof(PUBNUB) == "undefined" && console) {
       return console.error("PubNub not found. See http://www.pubnub.com/docs/javascript/javascript-sdk.html#_where_do_i_get_the_code");
     }
@@ -7869,6 +7882,8 @@ eon.m = {
     options.marker = options.marker || L.marker;
     options.options = options.options || {};
 
+    clog('Options', options);
+
     self.markers = {};
 
     if(!options.id) {
@@ -7882,8 +7897,13 @@ eon.m = {
     self.lastUpdate = new Date().getTime();
 
     self.update = function (seed, animate) {
+      
+      clog('Markers:', 'Updating');
 
       for(var key in seed) {
+
+        seed[key].latlng[0] = parseFloat(seed[key].latlng[0].toFixed(5));
+        seed[key].latlng[1] = parseFloat(seed[key].latlng[1].toFixed(5));
 
         if(!self.markers.hasOwnProperty(key)) {
 
@@ -7895,8 +7915,10 @@ eon.m = {
         } else {
 
           if(animate) {
+            clog('Markers:', 'Animating');
             self.animate(key, seed[key].latlng);
           } else {
+            clog('Markers:', 'Updating');
             self.updateMarker(key, seed[key].latlng);
           }
 
@@ -7930,39 +7952,65 @@ eon.m = {
 
       var startlatlng = self.markers[index].getLatLng();
 
-      self.animations[index] = {
+      var animation = {
         start: startlatlng,
         dest: destination,
         time: new Date().getTime(),
         length: new Date().getTime() - self.lastUpdate
       };
 
+      clog('Animation:', animation);
+
+      self.animations[index] = animation;
+
+      clog('Animations:', self.animations);
+
     };
 
     self.refresh = function() {
+
+      var s = {};
 
       for(var index in self.markers) {
 
         if(typeof self.animations[index] !== 'undefined') {
 
-          // number of steps in this animations
-          var maxSteps = Math.round(self.animations[index].length / self.refreshRate)
+          s.position = self.animations[index].start;
+
+          // number of steps in this animation
+          s.maxSteps = Math.round(self.animations[index].length / self.refreshRate)
 
           // time that has passed since that message
-          var timeSince = new Date().getTime() - self.animations[index].time;
-          var numSteps = Math.round(timeSince / self.refreshRate)
+          s.timeSince = new Date().getTime() - self.animations[index].time;
+          s.numSteps = Math.round(s.timeSince / self.refreshRate); // if this is 1 or 0 it fucks up steps
 
-          var position = self.animations[index].start;
+          if(s.numSteps <= s.maxSteps) {
 
-          var lat = position.lat + ((self.animations[index].dest[0] - position.lat) / maxSteps) * numSteps;
-          var lng = position.lng + ((self.animations[index].dest[1] - position.lng) / maxSteps) * numSteps;
+            // probably has to do with this math
+            s.latDistance = self.animations[index].dest[0] - s.position.lat;
+            s.lngDistance = self.animations[index].dest[1] - s.position.lng;
 
-          var nextStep = [lat, lng];
+            s.lat = s.position.lat + ((s.latDistance / s.maxSteps) * s.numSteps);
+            s.lng = s.position.lng + ((s.lngDistance / s.maxSteps) * s.numSteps);
 
-          self.updateMarker(index, nextStep);
+            s.nextStep = [s.lat, s.lng];
 
-          if(options.rotate) {
-            self.markers[index].options.angle = geo.bearing(position.lat, position.lng, lat, lng);
+            self.updateMarker(index, s.nextStep);
+
+            /*
+            Easing function
+            s.newPos = {
+              lat: s.nextStep[0],
+              lng: s.nextStep[1]
+            };
+
+            self.animations[index].start = s.newPos;
+            */
+
+            if(options.rotate) {
+              self.markers[index].options.angle = geo.bearing(s.position.lat, s.position.lng, s.lat, s.lng);
+            }
+             
           }
 
         }
@@ -7974,6 +8022,8 @@ eon.m = {
     };
 
     subsub.subscribe(self.pubnub, options.channel, false, function(message, env, channel) {
+
+      clog('PubNub:', 'Got Message');
 
       message = options.transform(message);
 
