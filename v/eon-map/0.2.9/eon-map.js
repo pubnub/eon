@@ -110,7 +110,7 @@ var subsub = {
   observers: {},
   message: function(message, env, channel) {
 
-    for(var i in subsub.observers[channel]) {
+    for(i = 0; i < subsub.observers[channel].length; i++) {
       subsub.observers[channel][i](message, env, channel);
     }
 
