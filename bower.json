@@ -41,10 +41,11 @@
     "pubnub": "3.7.8",
     "eon-map": "0.2.9",
     "c3": "https://github.com/diesburgm/c3.git#~0.4.10",
-    "eon-chart": "0.4.10"
+    "eon-chart": "0.4.11"
   },
   "resolutions": {
     "c3": "~0.4.10",
-    "d3": "~3.5.5"
+    "d3": "~3.5.5",
+    "eon-chart": "~0.4.11"
   }
 }
