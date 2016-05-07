@@ -39,7 +39,7 @@
   ],
   "dependencies": {
     "pubnub": "3.7.8",
-    "eon-map": "0.2.10",
+    "eon-map": "0.2.11",
     "c3": "https://github.com/diesburgm/c3.git#~0.4.10",
     "eon-chart": "0.4.13"
   },

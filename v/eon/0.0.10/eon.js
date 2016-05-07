@@ -8159,22 +8159,26 @@ window.eon.m = {
       clog('Markers:', 'Updating');
 
       for(var key in seed) {
-        
-        if(!self.markers.hasOwnProperty(key)) {
 
-          var data = seed[key].data || {};
+        if(seed.hasOwnProperty(key)) {
 
-          self.markers[key]= options.marker(seed[key].latlng, seed[key].data);
-          self.markers[key].addTo(self.map);
+          if(!self.markers[key]) {
 
-        } else {
+            var data = seed[key].data || {};
 
-          if(animate) {
-            clog('Markers:', 'Animating');
-            self.animate(key, seed[key].latlng);
+            self.markers[key]= options.marker(seed[key].latlng, seed[key].data);
+            self.markers[key].addTo(self.map);
+
           } else {
-            clog('Markers:', 'Updating');
-            self.updateMarker(key, seed[key].latlng);
+
+            if(animate) {
+              clog('Markers:', 'Animating');
+              self.animate(key, seed[key].latlng);
+            } else {
+              clog('Markers:', 'Updating');
+              self.updateMarker(key, seed[key].latlng);
+            }
+
           }
 
         }
@@ -8228,7 +8232,7 @@ window.eon.m = {
 
       for(var index in self.markers) {
 
-        if(typeof self.animations[index] !== 'undefined') {
+        if(self.markers.hasOwnProperty(index) && typeof self.animations[index] !== 'undefined') {
 
           s.position = self.animations[index].start;
 
