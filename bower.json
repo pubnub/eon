@@ -1,6 +1,6 @@
 {
   "name": "EON",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "homepage": "https://github.com/pubnub/eon",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
@@ -41,7 +41,7 @@
     "pubnub": "3.7.8",
     "eon-map": "0.2.11",
     "c3": "https://github.com/diesburgm/c3.git#~0.4.10",
-    "eon-chart": "0.4.15"
+    "eon-chart": "0.5.0"
   },
   "resolutions": {
     "c3": "~0.4.10",
