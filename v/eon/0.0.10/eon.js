@@ -7818,8 +7818,23 @@ window.eon.c = {
 
               var a = msgs[i];
               a.message = options.transform(a.message);
-              a = appendDate(a.message.eon, a.timetoken);
-              storeData(a, true);
+
+              if(a.message && (a.message.eon || a.message.eons)) {
+
+                var as = a.message.eons || [];
+
+                if(a.message.eon) {
+                  ms.push(a.message.eon);
+                }
+
+                for(var j in as) {
+                  as[j] = appendDate(as[j], a.timetoken)
+                  storeData(as[j], true); 
+                }
+
+              } else {
+                clog('Rejecting history message as improper format supplied.');
+              }
 
               i++;
 
@@ -7997,15 +8012,39 @@ window.eon.c = {
 
         var message = options.transform(message);
 
-        message.eon = appendDate(message.eon, env[1]);
+        if(message && (message.eon || message.eons)) {
 
-        clog('PubNub:', 'Message Result', message);
+          var ms = message.eons || [];
 
-        stale = true;
-        storeData(message.eon, false);
+          if(message.eon) {
+            ms.push(message.eon);
+          }
 
-        clog('PubNub:', 'Calling options.message');
-        options.message(message, env, channel);
+          console.log(message)
+
+          for(var i in ms) {
+            
+            console.log(ms[i])
+            ms[i] = appendDate(ms[i], env[1]);
+            clog('PubNub:', 'Message Result', ms[i]);
+
+            stale = true;
+            storeData(ms[i], false);
+
+          }
+
+          clog('PubNub:', 'Calling options.message');
+          options.message(message, env, channel);
+           
+        } else {
+
+            if(message && !message.eon) {
+              console.error('Eon messages must be in proper format. For example:',  {eon: [1,2,3]})
+            } else {
+              clog('EON:', 'Message rejected');
+            }
+
+        }
 
       });
 
@@ -8041,7 +8080,7 @@ window.eon.c = {
     var toReturn = {};
 
     for (var i in ob) {
-      if (!ob.hasOwnProperty(i)) continue;
+      if (!ob.hhOwnProperty(i)) continue;
 
       if ((typeof ob[i]) == 'object') {
         var flatObject = eon.c.flatten(ob[i]);
@@ -8295,11 +8334,12 @@ window.eon.m = {
 
       self.pubnub.history({
         channel: options.channel,
-        count: 1,
-        callback: function(m) {
+        callback: function(m, env, channel) {
 
-          if(m[0].length) {
-            self.update(m[0][0], true);
+          for(var a in m[0]) {
+            m[0][a] = options.transform(m[0][a]);
+            options.message(m[0][a], env, channel);
+            self.update(m[0][a], true);
           }
 
           options.connect();
