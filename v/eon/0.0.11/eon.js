@@ -8334,11 +8334,12 @@ window.eon.m = {
 
       self.pubnub.history({
         channel: options.channel,
-        count: 1,
-        callback: function(m) {
+        callback: function(m, env, channel) {
 
-          if(m[0].length) {
-            self.update(m[0][0], true);
+          for(var a in m[0]) {
+            m[0][a] = options.transform(m[0][a]);
+            options.message(m[0][a], env, channel);
+            self.update(m[0][a], true);
           }
 
           options.connect();
