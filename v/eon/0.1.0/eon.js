@@ -7880,48 +7880,54 @@ window.eon.c = {
           }
         },
         message: function(m) {
-          clog('PubNub:', '-------------------');
-          clog('PubNub:', 'Received Message', m);
 
-          clog('PubNub:', 'Transforming Message using options.transform');
+          if(m.channel == options.channel) {
+            
+            clog('PubNub:', '-------------------');
+            clog('PubNub:', 'Received Message', m);
 
-          var message = options.transform(m.message);
+            clog('PubNub:', 'Transforming Message using options.transform');
 
-          if(message && (message.eon || message.eons)) {
+            var message = options.transform(m.message);
 
-            var ms = message.eons || [];
+            if(message && (message.eon || message.eons)) {
 
-            if(message.eon) {
-              ms.push(message.eon);
-            }
+              var ms = message.eons || [];
 
-            for(var i in ms) {
-              
-              if(ms.hasOwnProperty(i)) {
-
-                ms[i] = appendDate(ms[i], m.timetoken);
-                clog('PubNub:', 'Message Result', ms[i]);
-
-                stale = true;
-                storeData(ms[i], false);
-                 
+              if(message.eon) {
+                ms.push(message.eon);
               }
 
-            }
+              for(var i in ms) {
+                
+                if(ms.hasOwnProperty(i)) {
 
-            clog('PubNub:', 'Calling options.message');
-             
-          } else {
+                  ms[i] = appendDate(ms[i], m.timetoken);
+                  clog('PubNub:', 'Message Result', ms[i]);
 
-              if(message && !message.eon) {
-                console.error('Eon messages must be in proper format. For example:',  {eon: [1,2,3]})
-              } else {
-                clog('EON:', 'Message rejected');
+                  stale = true;
+                  storeData(ms[i], false);
+                   
+                }
+
               }
+
+              clog('PubNub:', 'Calling options.message');
+               
+            } else {
+
+                if(message && !message.eon) {
+                  console.error('Eon messages must be in proper format. For example:',  {eon: [1,2,3]})
+                } else {
+                  clog('EON:', 'Message rejected');
+                }
+
+            }
+            
+            options.message(message, m.timetoken, m.channel);
 
           }
-          
-          options.message(message, m.timetoken, m.channel);
+
         }
       });
 
@@ -8197,12 +8203,15 @@ window.eon.m = {
       },
       message: function(m) {
         
-        clog('PubNub:', 'Got Message');
+        if(m.channel == options.channel) {
+          
+          clog('PubNub:', 'Got Message');
 
-        message = options.transform(m.message);
+          message = options.transform(m.message);
 
-        options.message(message, m.timetoken, m.channel);
-        self.update(message, true);
+          options.message(message, m.timetoken, m.channel);
+          self.update(message, true);
+        }
 
       }
     });
