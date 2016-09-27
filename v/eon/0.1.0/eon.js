@@ -7921,7 +7921,7 @@ window.eon.c = {
 
           }
           
-          options.message(message, m.timetoken, channel);
+          options.message(message, m.timetoken, m.channel);
         }
       });
 
@@ -8043,7 +8043,7 @@ window.eon.m = {
       }
     };
 
-    self.pubnub = options.pubnub || PUBNUB || false;
+    self.pubnub = options.pubnub || PubNub || false;
 
     if(!self.pubnub) {
       error = "PubNub not found. See http://www.pubnub.com/docs/javascript/javascript-sdk.html#_where_do_i_get_the_code";
@@ -8076,8 +8076,6 @@ window.eon.m = {
     self.update = function (seed, animate) {
       
       clog('Markers:', 'Updating');
-
-      console.log(seed)
 
       for(var key in seed) {
 
@@ -8203,7 +8201,7 @@ window.eon.m = {
 
         message = options.transform(m.message);
 
-        options.message(message, m.timetoken, channel);
+        options.message(message, m.timetoken, m.channel);
         self.update(message, true);
 
       }
@@ -8216,14 +8214,13 @@ window.eon.m = {
     if(options.history) {
 
       self.pubnub.history({
-        channel: options.channel
+        channel: options.channel,
+        includeTimetoken: true
       }, function(status, payload) {
-
-        console.log(status, payload)
 
         for(var a in payload.messages) {
           payload.messages[a].entry = options.transform(payload.messages[a].entry);
-          options.message(payload.messages[a].entry, payload.messages[a].timetoken, channel);
+          options.message(payload.messages[a].entry, payload.messages[a].timetoken, options.channel);
           self.update(payload.messages[a].entry, true);
         }
 
