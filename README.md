@@ -21,7 +21,7 @@ This repository contains ```gh-pages``` and ```gulp``` tasks to compile the full
 
 EON Charts Documentation
 
-<img src="http://i.imgur.com/IPGPKYO.gif"/>
+<img src="https://github.com/pubnub/eon/blob/gh-pages/media/charts.gif"/>
 </a>
 
 ### Maps
@@ -30,7 +30,7 @@ EON Charts Documentation
 
 EON Maps Documentation
 
-<img src="http://i.imgur.com/8am5hZ9.gif"/>
+<img src="https://github.com/pubnub/eon/blob/gh-pages/media/maps.gif"/>
 </a>
 
 # Development
