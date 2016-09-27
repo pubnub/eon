@@ -11,8 +11,7 @@ var wrap = require("gulp-wrap");
 var wrapper = '(function(window){<%= contents %>})(window);';
 
 var pubnub = [
-  'bower_components/pubnub/web/pubnub.min.js',
-  'bower_components/subsub/subsub.js'
+  'bower_components/pubnub/dist/web/pubnub.min.js'
 ];
 
 var map = [
