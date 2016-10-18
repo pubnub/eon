@@ -1,6 +1,6 @@
 {
   "name": "EON",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/pubnub/eon",
   "authors": [
     "Ian Jennings <ian@meetjennings.com>"
@@ -38,10 +38,7 @@
     "tests"
   ],
   "dependencies": {
-    "c3": "~0.4.10",
-    "d3": "~3.5.5",
-    "eon-chart": "0.7.3",
-    "pubnub": "~4.0.10",
-    "eon-map": "0.3.2"
+    "eon-chart": "1.0.0",
+    "eon-map": "1.0.1"
   }
 }
