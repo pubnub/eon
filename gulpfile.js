@@ -15,7 +15,7 @@ var pubnub = [
 ];
 
 var map = [
-  'bower_components/eon-map/lib/mapbox.js',
+  'bower_components/mapbox.js/mapbox.js',
   'bower_components/eon-map/pubnub-mapbox.js',
 ];
 
@@ -28,11 +28,11 @@ var chart = [
 
 var styles = [
   'bower_components/c3/c3.min.css',
-  'bower_components/eon-map/lib/mapbox.css'
+  'bower_components/mapbox.js/mapbox.css'
 ];
 
 var images = [
-  'bower_components/eon-map/lib/images/*'
+  'bower_components/mapbox.js/images/*'
 ];
 
 var map_files = pubnub
@@ -84,8 +84,7 @@ gulp.task('images', function(){
 
   return gulp.src(images)
     .pipe(gulp.dest('v/eon-map/' + bower.dependencies['eon-map'] + '/images'))
-    .pipe(gulp.dest('v/eon/' + bower.version + '/images'))
-    .pipe(gulp.dest('lib/images'));
+    .pipe(gulp.dest('v/eon/' + bower.version + '/images'));
 
 });
 

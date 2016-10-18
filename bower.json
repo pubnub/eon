@@ -38,7 +38,11 @@
     "tests"
   ],
   "dependencies": {
-    "eon-chart": "1.0.0",
-    "eon-map": "1.0.1"
+    "eon-chart": "1.0.1",
+    "eon-map": "1.0.2"
+  },
+  "resolutions": {
+    "eon-map": "1.0.2",
+    "eon-chart": "1.0.1"
   }
 }
