@@ -23,6 +23,7 @@ var chart = [
   'bower_components/d3/d3.min.js',
   'bower_components/c3/c3.js',
   'bower_components/visibilityjs/lib/visibility.core.js',
+  'bower_components/visibilityjs/lib/visibility.timers.js',
   'bower_components/eon-chart/pubnub-c3.js'
 ];
 
