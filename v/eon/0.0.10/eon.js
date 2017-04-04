@@ -6605,7 +6605,8 @@ if(t==e.dx){for((r||f>e.dy)&&(f=e.dy);++u<o;)i=n[u],i.x=a,i.y=c,i.dy=f,a+=i.dx=M
                         translateX = diffDomain(domain) / 2;
                     }
                 }
-            } else if (flow.orgDataCount === 1 || flowStart.x === flowEnd.x) {
+//            } else if (flow.orgDataCount === 1 || flowStart.x === flowEnd.x) {
+              } else if (flow.orgDataCount === 1 || (flowStart && flowStart.x) === (flowEnd && flowEnd.x)) {
                 translateX = $$.x(orgDomain[0]) - $$.x(domain[0]);
             } else {
                 if ($$.isTimeSeries()) {
