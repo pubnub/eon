@@ -15,8 +15,11 @@ var pubnub = [
 ];
 
 var map = [
-  'bower_components/mapbox.js/mapbox.js',
-  'bower_components/eon-map/pubnub-mapbox.js',
+  'bower_components/leaflet/dist/leaflet.js',
+  'bower_components/google-maps/lib/Google.js',
+  'bower_components/Leaflet.GridLayer.GoogleMutant/Leaflet.GoogleMutant.js',
+  'bower_components/mapbox.js/mapbox.standalone.js',
+  'bower_components/eon-map/eon-map.js',
 ];
 
 var chart = [
@@ -29,7 +32,8 @@ var chart = [
 
 var styles = [
   'bower_components/c3/c3.min.css',
-  'bower_components/mapbox.js/mapbox.css'
+  'bower_components/mapbox.js/mapbox.css',
+  'bower_components/leaflet/dist/leaflet.css'
 ];
 
 var images = [
