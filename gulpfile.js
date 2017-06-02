@@ -32,8 +32,7 @@ var chart = [
 
 var styles = [
   'bower_components/c3/c3.min.css',
-  'bower_components/mapbox.js/mapbox.css',
-  'bower_components/leaflet/dist/leaflet.css'
+  'bower_components/mapbox.js/mapbox.css'
 ];
 
 var images = [
