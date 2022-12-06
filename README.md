@@ -1,3 +1,7 @@
+## Please note that this project is no longer actively maintained or accepting Pull Requests.  The EON library remains available on npm, bower, or through hotlink.
+
+--------------------------------
+
 # EON Realtime Dashboards
 
 This is the repository for the compiled EON framework, including [eon-chart](https://github.com/pubnub/eon-chart) and [eon-map](https://github.com/pubnub/eon-map).
