@@ -1,0 +1,21 @@
+{
+  "name": "eon",
+  "description": "dashboard application on heroku",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    },
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
